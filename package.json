@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "csv-parse": "^1.2.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "fs": "^0.0.1-security",
+    "knex": "^0.13.0",
+    "path": "^0.12.7",
+    "pg": "^6.2.4"
+  },
+  "name": "vanity-callsigns",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": "https://github.com/harpojaeger/vanity-callsigns.git",
+  "author": "Harpo Jaeger <harpo.jaeger@gmail.com>",
+  "license": "AGPL-3.0"
+}
