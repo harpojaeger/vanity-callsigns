@@ -7,7 +7,7 @@ psql $DATABASE_URL -c "DROP TABLE IF EXISTS import.amateur_licenses"
 /app/bin/pgfutter_linux --ignore-errors csv /tmp/amateur_licenses.csv
 psql $DATABASE_URL -c "DELETE FROM import.amateur_licenses WHERE radio_service_desc <> 'Amateur';
 ALTER TABLE import.amateur_licenses RENAME TO amateur;
-DROP TABLE licenses.amateur;
-ALTER TABLE import.amatuer SET SCHEMA licenses;
+DROP TABLE IF EXISTS licenses.amateur;
+ALTER TABLE import.amaterr SET SCHEMA licenses;
 "
 rm -f /tmp/licenses*
