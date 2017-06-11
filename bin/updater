@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
-wget -O ../tmp/sample_licenses.csv http://data.fcc.gov/download/license-view/fcc-license-view-data-sample.csv
-psql $DATABASE_URL -c "DROP TABLE IF EXISTS import.SAMPLE_LICENSES"
-/app/bin/pgfutter_linux --ignore-errors csv /tmp/sample_licenses.csv
+rm -f /tmp/licenses*
+wget -O /tmp/licenses.zip https://www.dropbox.com/s/fscu60sy0gbzn81/fcc-license-view-data-sample.csv.zip?dl=1
+gunzip -c /tmp/licenses.zip > /tmp/licenses.csv
+psql $DATABASE_URL -c "DROP TABLE IF EXISTS import.licenses"
+/app/bin/pgfutter_linux --ignore-errors csv /tmp/licenses.csv
