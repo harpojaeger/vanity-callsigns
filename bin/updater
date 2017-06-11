@@ -4,10 +4,9 @@ gunzip -c /tmp/licenses.zip > /tmp/licenses.csv
 # Rather than insert every damn row into the import table, first do a quick filter.
 awk 'NR==1 || /Amateur/' /tmp/licenses.csv > /tmp/amateur_licenses.csv
 psql $DATABASE_URL -c "DROP TABLE IF EXISTS import.amateur_licenses"
-/app/bin/pgfutter_linux --ignore-errors csv /tmp/amateur_licenses.csv
-psql $DATABASE_URL -c "DELETE FROM import.amateur_licenses WHERE radio_service_desc <> 'Amateur';
-ALTER TABLE import.amateur_licenses RENAME TO amateur;
+/app/bin/pgfutter_linux --ignore-errors --table amateur csv /tmp/amateur_licenses.csv
+psql $DATABASE_URL -c "DELETE FROM import.amateur WHERE radio_service_desc <> 'Amateur';
 DROP TABLE IF EXISTS licenses.amateur;
-ALTER TABLE import.amaterr SET SCHEMA licenses;
+ALTER TABLE import.amateur SET SCHEMA licenses;
 "
 rm -f /tmp/licenses*
