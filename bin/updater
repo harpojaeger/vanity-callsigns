@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+wget --no-check-certificate -O pgfutter_linux https://github.com/lukasmartinelli/pgfutter/releases/download/v1.1/pgfutter_linux_amd64
+chmod +x pgfutter_linux
+psql -d postgres -c "DROP TABLE IF EXISTS import.SAMPLE_LICENSES"
+./pgfutter_linux csv ../tmp/sample_licenses.csv
