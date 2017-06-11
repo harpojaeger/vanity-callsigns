@@ -5,5 +5,9 @@ gunzip -c /tmp/licenses.zip > /tmp/licenses.csv
 awk 'NR==1 || /Amateur/' /tmp/licenses.csv > /tmp/amateur_licenses.csv
 psql $DATABASE_URL -c "DROP TABLE IF EXISTS import.amateur_licenses"
 /app/bin/pgfutter_linux --ignore-errors csv /tmp/amateur_licenses.csv
-psql $DATABASE_URL -c "TRUNCATE TABLE licenses; INSERT INTO licenses select * from import.amateur_licenses where radio_service_desc='Amateur'"
+psql $DATABASE_URL -c "DELETE FROM import.amateur_licenses WHERE radio_service_desc <> 'Amateur';
+ALTER TABLE import.amateur_licenses RENAME TO amateur;
+DROP TABLE licenses.amateur;
+ALTER TABLE import.amatuer SET SCHEMA licenses;
+"
 rm -f /tmp/licenses*
