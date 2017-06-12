@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// Create a table and seed it with *literally every* possible US ham radio callsign.
 require('dotenv').config()
 var pg = require('pg')
 var knex = require('knex')({
@@ -19,9 +20,9 @@ knex.schema.createTableIfNotExists('allcallsigns', (table) => {
   console.error(err)
 })
 
-var alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('')
-var first_letters = 'AKNW'.split('')
-var regions = '0123456789'.split('')
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('')
+const first_letters = 'AKNW'.split('')
+const regions = '0123456789'.split('')
 var suffixes = []
 var all_callsigns = []
 
