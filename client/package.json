@@ -1,6 +1,9 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "engines": {
+    "node": "6.9.4"
+  },
   "private": true,
   "dependencies": {
     "react": "^15.5.4",
