@@ -19,6 +19,13 @@ app.get('/', (req, res) => {
   res.send('Hello world.')
 })
 
+const search = require('./search')
+app.use('/callsigns', search)
+
+app.get('*', (req, res) => {
+  res.sendStatus(404)
+})
+
 app.listen(port, () => {
   console.log('Server running on port', port)
 })
