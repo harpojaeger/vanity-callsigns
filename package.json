@@ -17,7 +17,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "postinstall": "cd client && npm install --only=dev && npm install && npm run react-scripts build",
+    "postinstall": "cd client && npm install && npm run build",
     "start-server": "node index.js",
     "start-client": "cd client && npm run start",
     "start": "npm-run-all -p start-server start-client"
