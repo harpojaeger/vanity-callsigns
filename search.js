@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
     console.log('Final search parameters:',searchStrings)
 
     knex('licenses.amateur')
-    .select('callsign','lic_name','rollup_status_code','expired_date','cancellation_date')
+    .select('lic_name','rollup_status_code','expired_date','cancellation_date',knex.raw("((regexp_split_to_array(callsign, '[0-9]'))[1]) as prefix, (regexp_split_to_array(callsign, '[0-9]'))[2] as suffix, (regexp_matches(callsign,'[0-9]'))[1]::integer AS region"))
     .whereRaw(`callsign like ?
     AND callsign LIKE ?
     AND callsign LIKE ?
