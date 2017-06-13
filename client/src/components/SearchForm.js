@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Button, FormControl}  from 'react-bootstrap'
 import '../style/SearchForm.css'
+import PropTypes from 'prop-types'
 
 class SearchForm extends Component {
   constructor(props) {
@@ -26,6 +27,11 @@ class SearchForm extends Component {
       </form>
     )
   }
+}
+
+
+SearchForm.propTypes = {
+  doSearch: PropTypes.func.isRequired
 }
 
 export default SearchForm

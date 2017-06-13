@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchForm from './SearchForm'
+import ResultsList from './ResultsList'
 import '../style/App.css';
 import api from '../utils/api'
 
@@ -14,7 +15,10 @@ class App extends Component {
     api.doSearch(s)
     .then( (res) => {
       console.log('search returned', res)
-      this.setState( { results: res })
+      this.setState({
+        results: res,
+        callsignSearched: s
+      })
     })
   }
   render() {
@@ -24,6 +28,9 @@ class App extends Component {
           <h2>Vanity callsign search</h2>
         </div>
         <SearchForm doSearch={this.doSearch}/>
+        {this.state.results &&
+          <ResultsList callsignSearched={this.state.callsignSearched} results={this.state.results} />
+        }
       </div>
     );
   }
