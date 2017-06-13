@@ -1,9 +1,12 @@
 form.searchForm {
   display: flex;
   padding: 10px;
-  width: 50%;
+  justify-content: center;
 }
 
 form.searchForm button {
   margin-left: 10px;
+}
+form.searchForm input {
+  width: 110px;
 }
