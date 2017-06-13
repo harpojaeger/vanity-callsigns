@@ -17,9 +17,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "postinstall": "cd client && npm install && npm run build",
+    "postinstall": "cd client && yarn install && yarn run build",
     "start-server": "node index.js",
-    "start-client": "cd client && npm run start",
+    "start-client": "cd client && yarn run start",
     "start": "npm-run-all -p start-server start-client"
   },
   "repository": "https://github.com/harpojaeger/vanity-callsigns.git",
