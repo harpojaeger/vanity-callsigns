@@ -12,9 +12,6 @@
   },
   "name": "vanity-callsigns",
   "version": "1.0.0",
-  "engines": {
-    "node": "7.x"
-  },
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
