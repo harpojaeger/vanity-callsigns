@@ -19,7 +19,7 @@
   "scripts": {
     "postinstall": "cd client && npm install --only=dev && npm install && npm run react-scripts build",
     "start-server": "node index.js",
-    "start-client": "cd client && yarn run start",
+    "start-client": "cd client && npm run start",
     "start": "npm-run-all -p start-server start-client"
   },
   "repository": "https://github.com/harpojaeger/vanity-callsigns.git",
