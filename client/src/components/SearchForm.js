@@ -1,13 +1,29 @@
 import React, {Component} from 'react'
 import {Button, FormControl}  from 'react-bootstrap'
+import '../style/SearchForm.css'
 
 class SearchForm extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      s: ''
+    }
+    this.searchTextChanged = this.searchTextChanged.bind(this)
+    this.searchFormSubmitted = this.searchFormSubmitted.bind(this)
+  }
+  searchTextChanged(e) {
+    this.setState({ s: e.target.value })
+  }
+  searchFormSubmitted(e) {
+    e.preventDefault()
+    this.props.doSearch(this.state.s)
+  }
   render() {
     return (
-      <div class='searchForm'>
-        <FormControl type='text' className='search' />
-        <Button type='submit' value='search'>Search</Button>
-      </div>
+      <form className='searchForm'>
+        <FormControl type='text' className='search' value={this.state.s} onChange={this.searchTextChanged}/>
+        <Button type='submit' value='search' onClick={this.searchFormSubmitted}>Search</Button>
+      </form>
     )
   }
 }
