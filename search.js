@@ -36,7 +36,6 @@ router.get('/', (req, res) => {
     .then( (rows) => {
       console.log('found',rows.length,'callsigns matching', req.query.s)
       res.send(rows)
-      knex.destroy()
     })
     .catch( (err) => {
       console.error(err)
