@@ -17,7 +17,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "postinstall": "cd client && yarn run react-scripts build",
+    "postinstall": "cd client && yarn install --production=false && yarn install && yarn run react-scripts build",
     "start-server": "node index.js",
     "start-client": "cd client && npm run start",
     "start": "npm-run-all -p start-server start-client"
