@@ -27,10 +27,12 @@ class App extends Component {
         <div className="App-header">
           <h2>Vanity callsign search</h2>
         </div>
-        <SearchForm doSearch={this.doSearch}/>
-        {this.state.results &&
-          <ResultsList callsignSearched={this.state.callsignSearched} results={this.state.results} />
-        }
+        <div className='content-wrapper'>
+          <SearchForm doSearch={this.doSearch}/>
+          {this.state.results &&
+            <ResultsList callsignSearched={this.state.callsignSearched} results={this.state.results} />
+          }
+        </div>
       </div>
     );
   }

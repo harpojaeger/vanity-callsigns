@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 function Callsign(props) {
-  return <li key={props.callsign}>{props.callsign}</li>
+  return <li className='result' key={props.callsign}>{props.callsign}</li>
 }
 
 Callsign.propTypes = {
