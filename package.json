@@ -17,9 +17,14 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start-server": "node index.js",
+    "start-client": "cd client && npm run start",
+    "start": "npm-run-all -p start-server start-client"
   },
   "repository": "https://github.com/harpojaeger/vanity-callsigns.git",
   "author": "Harpo Jaeger <harpo.jaeger@gmail.com>",
-  "license": "AGPL-3.0"
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "npm-run-all": "^4.0.2"
+  }
 }
