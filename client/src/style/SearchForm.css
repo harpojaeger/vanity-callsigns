@@ -10,3 +10,6 @@ form.searchForm button {
 form.searchForm input {
   width: 110px;
 }
+div.checkbox{
+  margin: auto 0;
+}

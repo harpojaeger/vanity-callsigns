@@ -10,49 +10,63 @@ class App extends Component {
     super(props)
     this.state = {
       offset: 0,
-      amount: 50,
+      resultsPerPage: 50,
       moreResultsAreLoading: false,
       searchIsRunning: false,
+      showLoadMoreButton: false,
+      results: []
     }
     this.doSearch = this.doSearch.bind(this)
     this.loadMore = this.loadMore.bind(this)
     this.doInitialSearch = this.doInitialSearch.bind(this)
+    this.addReturnedResultsToState = this.addReturnedResultsToState.bind(this)
   }
-  doInitialSearch(s) {
-    this.setState( {searchIsRunning: true })
-    this.doSearch(s, 0)
+  doInitialSearch(params) {
+    this.setState({
+      searchIsRunning: true,
+      results: [],
+      showLoadMoreButton: false,
+      callsignSearched: params.s,
+    })
+    this.doSearch(params)
   }
-  doSearch(s, offset) {
-    console.log('searching', s, 'with offset', offset)
-    api.doSearch(s, offset)
+  doSearch(params) {
+    console.log('search function invoked with params',params)
+    api.doSearch(params)
     .then( (res) => {
       // console.log('search returned', res)
+      this.addReturnedResultsToState(res)
       this.setState({
-        results: res,
-        callsignSearched: s,
-        offset: offset,
+        offset: params.offset,
         searchIsRunning: false,
       })
+    })
+  }
+  addReturnedResultsToState(res) {
+    this.setState( (prevState) => {
+      let newResults = prevState.results.concat(res)
+      return {
+        results: newResults,
+        moreResultsAreLoading: false,
+        showLoadMoreButton: (res.length === prevState.resultsPerPage)
+      }
     })
   }
   loadMore() {
     this.setState( (prevState, props) => {
       return {
-        offset: prevState.offset + this.state.amount,
+        offset: prevState.offset + this.state.resultsPerPage,
         moreResultsAreLoading: true
       }
     },
     function() {
       console.log('searching', this.state.callsignSearched, 'with offset', this.state.offset)
-      api.doSearch(this.state.callsignSearched, this.state.offset)
+      api.doSearch({
+        s: this.state.callsignSearched,
+        offset: this.state.offset
+      })
       .then( (res) => {
-        this.setState( (prevState) => {
-          let newResults = prevState.results.concat(res)
-          return {
-            results: newResults,
-            moreResultsAreLoading: false
-          }
-        })
+        this.addReturnedResultsToState(res)
       })
     }.bind(this)
   )}
@@ -64,11 +78,11 @@ class App extends Component {
         </div>
         <div className='content-wrapper'>
           <SearchForm searchIsRunning={this.state.searchIsRunning} doSearch={this.doInitialSearch}/>
-          {this.state.results &&
+          {this.state.results.length > 0 &&
             <ResultsList callsignSearched={this.state.callsignSearched} results={this.state.results} />
           }
-          {this.state.results &&
-            <LoadMoreButton moreResultsAreLoading={this.state.moreResultsAreLoading} amount={this.state.amount} loadMoreFunction={this.loadMore} />
+          {this.state.showLoadMoreButton &&
+            <LoadMoreButton moreResultsAreLoading={this.state.moreResultsAreLoading} amount={this.state.resultsPerPage} loadMoreFunction={this.loadMore} />
           }
         </div>
       </div>

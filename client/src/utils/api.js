@@ -1,12 +1,7 @@
 import axios from 'axios'
 
-function doSearch(s, offset) {
-  return axios.get('/callsigns', {
-    params: {
-      s: s,
-      offset: offset
-    }
-  })
+function doSearch(params) {
+  return axios.get('/callsigns', { params: params })
   .then( (res) => {
     console.log('API: got',res)
     return res.data
