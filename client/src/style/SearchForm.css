@@ -1,9 +1,17 @@
+div.searchContentWrapper {
+  margin: 0 auto;
+  padding: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 form.searchForm {
   display: flex;
   padding-top: 10px;
   justify-content: center;
+  flex-basis: content;
+  flex-wrap: wrap;
 }
-
 form.searchForm button {
   margin-left: 10px;
 }
@@ -11,5 +19,20 @@ form.searchForm input {
   width: 110px;
 }
 div.checkbox{
-  margin: auto 0;
+  margin: auto 0 auto 5px;
+}
+div.validationMessages {
+  display:block;
+  text-align: left;
+  margin-top: 10px;
+  color:rgb(200,0,0);
+}
+ul.validationMessageList {
+  margin: 0;
+  padding: 0;
+}
+li.validationMessageListItem{
+  list-style-type: none;
+  margin:0;
+  padding: 0;
 }

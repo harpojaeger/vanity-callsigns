@@ -35,8 +35,8 @@ function ResultsList(props) {
   const twoByTwos = props.results.filter(byDimension, {prefixLength: 2, suffixLength: 2})
   const twoByThrees = props.results.filter(byDimension, {prefixLength: 2, suffixLength: 3})
 
-  const sumOfSplitLengths = oneByTwos.length + oneByThrees.length + twoByOnes.length + twoByTwos.length + twoByThrees.length
-  console.log('Split callsigns, length sum is',sumOfSplitLengths,'total length is',props.results.length)
+  // const sumOfSplitLengths = oneByTwos.length + oneByThrees.length + twoByOnes.length + twoByTwos.length + twoByThrees.length
+  // console.log('Split callsigns, length sum is',sumOfSplitLengths,'total length is',props.results.length)
   return (
     <div>
       <ResultsGroup title='1x2s' results={oneByTwos} />
