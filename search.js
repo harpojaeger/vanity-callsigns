@@ -12,7 +12,7 @@ const router = express.Router()
 
 router.get('/', (req, res) => {
   console.log(req.query)
-  if(!req.query.s) {
+  if(!req.query.s  || ! req.query.offset) {
     res.sendStatus(400)
   } else {
     var searchChars = req.query.s.toUpperCase().split('')
@@ -33,6 +33,8 @@ router.get('/', (req, res) => {
     AND callsign LIKE ?`,searchStrings
     )
     .orderByRaw('length(callsign), callsign')
+    .limit(50)
+    .offset(req.query.offset)
     .then( (rows) => {
       console.log('found',rows.length,'callsigns matching', req.query.s)
       res.send(rows)

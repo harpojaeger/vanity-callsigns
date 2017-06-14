@@ -1,9 +1,10 @@
 import axios from 'axios'
 
-function doSearch(s) {
+function doSearch(s, offset) {
   return axios.get('/callsigns', {
     params: {
-      s: s
+      s: s,
+      offset: offset
     }
   })
   .then( (res) => {

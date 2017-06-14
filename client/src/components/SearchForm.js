@@ -17,7 +17,7 @@ class SearchForm extends Component {
   }
   searchFormSubmitted(e) {
     e.preventDefault()
-    this.props.doSearch(this.state.s)
+    this.props.doSearch(this.state.s, 0)
   }
   render() {
     return (
