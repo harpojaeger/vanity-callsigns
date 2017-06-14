@@ -11,10 +11,16 @@ class App extends Component {
     this.state = {
       offset: 0,
       amount: 50,
-      resultsAreLoading: false
+      moreResultsAreLoading: false,
+      searchIsRunning: false,
     }
     this.doSearch = this.doSearch.bind(this)
     this.loadMore = this.loadMore.bind(this)
+    this.doInitialSearch = this.doInitialSearch.bind(this)
+  }
+  doInitialSearch(s) {
+    this.setState( {searchIsRunning: true })
+    this.doSearch(s, 0)
   }
   doSearch(s, offset) {
     console.log('searching', s, 'with offset', offset)
@@ -25,6 +31,7 @@ class App extends Component {
         results: res,
         callsignSearched: s,
         offset: offset,
+        searchIsRunning: false,
       })
     })
   }
@@ -32,7 +39,7 @@ class App extends Component {
     this.setState( (prevState, props) => {
       return {
         offset: prevState.offset + this.state.amount,
-        resultsAreLoading: true
+        moreResultsAreLoading: true
       }
     },
     function() {
@@ -43,7 +50,7 @@ class App extends Component {
           let newResults = prevState.results.concat(res)
           return {
             results: newResults,
-            resultsAreLoading: false
+            moreResultsAreLoading: false
           }
         })
       })
@@ -56,12 +63,12 @@ class App extends Component {
           <h2>Vanity callsign search</h2>
         </div>
         <div className='content-wrapper'>
-          <SearchForm doSearch={this.doSearch}/>
+          <SearchForm searchIsRunning={this.state.searchIsRunning} doSearch={this.doInitialSearch}/>
           {this.state.results &&
             <ResultsList callsignSearched={this.state.callsignSearched} results={this.state.results} />
           }
           {this.state.results &&
-            <LoadMoreButton resultsAreLoading={this.state.resultsAreLoading} amount={this.state.amount} loadMoreFunction={this.loadMore} />
+            <LoadMoreButton moreResultsAreLoading={this.state.moreResultsAreLoading} amount={this.state.amount} loadMoreFunction={this.loadMore} />
           }
         </div>
       </div>
