@@ -10,7 +10,14 @@ function ResultsGroup(props) {
       <ul className='resultsGroup'>
         {props.results.map( (res) => {
           const callsign = res.prefix.concat(res.region, res.suffix)
-          return <Callsign key={callsign} callsign={callsign} prefix={res.prefix} region={res.region} suffix={res.suffix} />
+          return <Callsign
+            key={callsign}
+            callsign={callsign}
+            prefix={res.prefix}
+            region={res.region}
+            suffix={res.suffix}
+            rollup_status_code={res.rollup_status_code}
+          />
         })}
       </ul>
     </div>
@@ -36,7 +43,7 @@ function ResultsList(props) {
       <ResultsGroup title='2x1s' results={twoByOnes} />
       <ResultsGroup title='1x3s' results={oneByThrees} />
       <ResultsGroup title='2x2s' results={twoByTwos} />
-      <ResultsGroup title='2x3ss' results={twoByThrees} />
+      <ResultsGroup title='2x3s' results={twoByThrees} />
     </div>
   )
 }
