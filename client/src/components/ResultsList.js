@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Checkbox} from 'react-bootstrap'
+import {FormGroup, Checkbox} from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import Callsign from './Callsign'
 import '../style/ResultsList.css'
@@ -7,7 +7,7 @@ import '../style/ResultsList.css'
 function ResultsGroup(props) {
   return(
     <div>
-      {props.results.length > 0 && <h1 className='resultsGroupHeading'>{props.title}</h1>}
+      {props.results.length > 0 && <h2 className='resultsGroupHeading'>{props.title}</h2>}
       <ul className='resultsGroup'>
         {props.results.map( (res) => {
           const callsign = res.prefix.concat(res.region, res.suffix)
@@ -97,32 +97,39 @@ class ResultsList extends Component {
     const sumOfSplitLengths = oneByTwos.length + oneByThrees.length + twoByOnes.length + twoByTwos.length + twoByThrees.length
     console.log('Split callsigns, length sum is',sumOfSplitLengths,'total length is',filteredResults.length)
     return(
-      <div>
-        {
-          [...Array(10)].map( (el, i) => {
-            return <Checkbox
-              key={'region-'+i}
-              onChange={this.handleRegionFilterControlUpdate}
-              name={i}
-              checked={this.state.filterState.regions[i]}>
-                {i}
-              </Checkbox> })
-        }
-        {
-        ['A','K','N','W'].map( (letter) => {
-          return <Checkbox
-            key={'letter-'+letter}
-            onChange={this.handleLetterFilterControlUpdate}
-            name={letter}
-            checked={this.state.filterState.letters[letter]}>
-              {letter}
-            </Checkbox>})
-        }
-        <ResultsGroup title='1x2s' results={oneByTwos} />
-        <ResultsGroup title='2x1s' results={twoByOnes} />
-        <ResultsGroup title='1x3s' results={oneByThrees} />
-        <ResultsGroup title='2x2s' results={twoByTwos} />
-        <ResultsGroup title='2x3s' results={twoByThrees} />
+      <div className='resultsWrapper'>
+        <span className='resultsMeta'>
+        <h1 className='textSearched'>{this.props.textSearched}</h1>
+        <div className='filterControls'>
+          <FormGroup>{
+            [...Array(10)].map( (el, i) => {
+              return <Checkbox inline
+                key={'region-'+i}
+                onChange={this.handleRegionFilterControlUpdate}
+                name={i}
+                checked={this.state.filterState.regions[i]}>
+                  {i}
+                </Checkbox> })
+          }</FormGroup>
+          <FormGroup>{
+          ['A','K','N','W'].map( (letter) => {
+            return <Checkbox inline
+              key={'letter-'+letter}
+              onChange={this.handleLetterFilterControlUpdate}
+              name={letter}
+              checked={this.state.filterState.letters[letter]}>
+                {letter}
+              </Checkbox>})
+          }</FormGroup>
+        </div>
+      </span>
+        <div className='resultsGroups'>
+          <ResultsGroup title='1x2s' results={oneByTwos} />
+          <ResultsGroup title='2x1s' results={twoByOnes} />
+          <ResultsGroup title='1x3s' results={oneByThrees} />
+          <ResultsGroup title='2x2s' results={twoByTwos} />
+          <ResultsGroup title='2x3s' results={twoByThrees} />
+        </div>
       </div>
     )
   }
@@ -140,7 +147,7 @@ ResultsGroup.propTypes = {
 }
 
 ResultsList.propTypes = {
-  callsignSearched: PropTypes.string.isRequired,
+  textSearched: PropTypes.string.isRequired,
   results: PropTypes.arrayOf(PropTypes.shape({
     prefix: PropTypes.string.isRequired,
     suffix: PropTypes.string.isRequired,

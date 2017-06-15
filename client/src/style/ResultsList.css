@@ -1,4 +1,4 @@
-h1.resultsGroupHeading {
+h2.resultsGroupHeading {
   font-size: 2em;
 }
 ul.resultsGroup {
@@ -11,4 +11,21 @@ li.result {
   font-family: monospace;
   padding: 10px;
   list-style-type: none;
+}
+div.filterControls {
+
+
+}
+div.resultsWrapper {
+  margin: 0 auto;
+  padding: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+h1.textSearched {
+  display: block;
+}
+div.resultsGroups {
+  display: block;
 }

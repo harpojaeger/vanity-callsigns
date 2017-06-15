@@ -26,7 +26,7 @@ class App extends Component {
       searchIsRunning: true,
       results: [],
       showLoadMoreButton: false,
-      callsignSearched: params.s,
+      textSearched: params.s,
     })
     this.doSearch(params)
   }
@@ -60,9 +60,9 @@ class App extends Component {
       }
     },
     function() {
-      console.log('searching', this.state.callsignSearched, 'with offset', this.state.offset)
+      console.log('searching', this.state.textSearched, 'with offset', this.state.offset)
       api.doSearch({
-        s: this.state.callsignSearched,
+        s: this.state.textSearched,
         offset: this.state.offset
       })
       .then( (res) => {
@@ -79,7 +79,7 @@ class App extends Component {
         <div className='content-wrapper'>
           <SearchForm searchIsRunning={this.state.searchIsRunning} doSearch={this.doInitialSearch}/>
           {this.state.results.length > 0 &&
-            <ResultsList callsignSearched={this.state.callsignSearched} results={this.state.results} />
+            <ResultsList textSearched={this.state.textSearched} results={this.state.results} />
           }
           {this.state.showLoadMoreButton &&
             <LoadMoreButton moreResultsAreLoading={this.state.moreResultsAreLoading} amount={this.state.resultsPerPage} loadMoreFunction={this.loadMore} />
