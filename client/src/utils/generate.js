@@ -10,7 +10,7 @@ const generate = function generate(params) {
     // const all_regions = '0123456789'.split('')
     var callsigns = []
 
-    const disallowedAPrefixes = /^A[L-Zl-z]/i
+    const disallowedAPrefixes = /^A[L-Z]?\d/i
     const isValidCallsign = /^[AKNW][a-z]?\d[a-z]{1,3}$/i
 
     search_regions.forEach( (region) => {
@@ -21,11 +21,11 @@ const generate = function generate(params) {
         //eslint-disable-next-line
         first_letters.forEach( (first_letter) => {
           const callsign = first_letter + a.join('')
-          console.log('testing', callsign)
+          // console.log('testing', callsign)
           if (callsign.search(isValidCallsign) === -1) {
-            console.log(callsign, 'is not a valid callsign')
+            // console.log(callsign, 'is not a valid callsign')
           } else if(callsign.search(disallowedAPrefixes) !== -1) {
-            console.log('Callsign',callsign,'flunked A prefix test')
+            // console.log('Callsign',callsign,'flunked A prefix test')
           } else {
             const digitIndex=callsign.search(/\d/)
             callsigns.push({
