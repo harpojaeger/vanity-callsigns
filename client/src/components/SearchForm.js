@@ -91,10 +91,19 @@ class SearchForm extends Component {
   searchFormSubmitted(e) {
     e.preventDefault()
     const search_letters = this.state.search.s.toUpperCase().split('')
+    var search_regions = []
+    var first_letters = []
+    for (var letter in this.state.search.letters) {
+      if(this.state.search.letters[letter]) first_letters.push(letter)
+    }
+    for (var region in this.state.search.regions) {
+      if(this.state.search.regions[region]) search_regions.push(region)
+    }
+    console.log(search_regions)
     this.props.doSearch({
       search_letters: search_letters,
-      search_regions: [0,1],
-      first_letters: ['A','K']
+      search_regions: search_regions,
+      first_letters: first_letters
     })
   }
   render() {

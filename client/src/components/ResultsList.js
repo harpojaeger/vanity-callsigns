@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {FormGroup, Checkbox} from 'react-bootstrap'
+// import {FormGroup, Checkbox} from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import Callsign from './Callsign'
 import '../style/ResultsList.css'
@@ -29,80 +29,80 @@ class ResultsList extends Component {
   constructor(props){
     super(props)
     this.byDimension = this.byDimension.bind(this)
-    this.filterResults = this.filterResults.bind(this)
-    this.handleRegionFilterControlUpdate = this.handleRegionFilterControlUpdate.bind(this)
-    this.handleLetterFilterControlUpdate = this.handleLetterFilterControlUpdate.bind(this)
-    const initialFilterState = {
-      letters: {
-        A: true,
-        K: true,
-        N: true,
-        W: true
-      },
-      regions: {
-        0: true,
-        1: true,
-        2: true,
-        3: true,
-        4: true,
-        5: true,
-        6: true,
-        7: true,
-        8: true,
-        9: true
-      }
-    }
-    this.state = {
-      initialfilterState: initialFilterState,
-      filterState: initialFilterState
-    }
+    // this.filterResults = this.filterResults.bind(this)
+    // this.handleRegionFilterControlUpdate = this.handleRegionFilterControlUpdate.bind(this)
+    // this.handleLetterFilterControlUpdate = this.handleLetterFilterControlUpdate.bind(this)
+    // const initialFilterState = {
+    //   letters: {
+    //     A: true,
+    //     K: true,
+    //     N: true,
+    //     W: true
+    //   },
+    //   regions: {
+    //     0: true,
+    //     1: true,
+    //     2: true,
+    //     3: true,
+    //     4: true,
+    //     5: true,
+    //     6: true,
+    //     7: true,
+    //     8: true,
+    //     9: true
+    //   }
+    // }
+    // this.state = {
+    //   initialfilterState: initialFilterState,
+    //   filterState: initialFilterState
+    // }
   }
   byDimension(filterParams) {
     return (callsign) => {
       return callsign.prefix.length === filterParams.prefixLength && callsign.suffix.length === filterParams.suffixLength
     }
   }
-  handleRegionFilterControlUpdate(e) {
-    console.log(e.target)
-    const region = e.target.name
-    this.setState( (prevState) => {
-      var newState = prevState
-      newState.filterState.regions[region] = !newState.filterState.regions[region]
-      return newState
-    })
-  }
-  handleLetterFilterControlUpdate(e) {
-    console.log(e.target)
-    const letter = e.target.name
-    this.setState( (prevState) => {
-      var newState = prevState
-      newState.filterState.letters[letter] = !newState.filterState.letters[letter]
-      return newState
-    })
-  }
-  filterResults(result) {
-    return this.state.filterState.regions[result.region] && this.state.filterState.letters[result.prefix.substring(0,1)]
-  }
-  componentWillReceiveProps() {
-    //reset the filter here
-  }
+  // handleRegionFilterControlUpdate(e) {
+  //   console.log(e.target)
+  //   const region = e.target.name
+  //   this.setState( (prevState) => {
+  //     var newState = prevState
+  //     newState.filterState.regions[region] = !newState.filterState.regions[region]
+  //     return newState
+  //   })
+  // }
+  // handleLetterFilterControlUpdate(e) {
+  //   console.log(e.target)
+  //   const letter = e.target.name
+  //   this.setState( (prevState) => {
+  //     var newState = prevState
+  //     newState.filterState.letters[letter] = !newState.filterState.letters[letter]
+  //     return newState
+  //   })
+  // }
+  // filterResults(result) {
+  //   return this.state.filterState.regions[result.region] && this.state.filterState.letters[result.prefix.substring(0,1)]
+  // }
+  // componentWillReceiveProps() {
+  //   //reset the filter here
+  // }
   render(){
     // Placeholder for the filter function
-    var filteredResults = this.props.results.filter(this.filterResults)
+    // var filteredResults = this.props.results.filter(this.filterResults)
 
     // Split the callsigns up into groups by dimension.
-    const oneByTwos = filteredResults.filter(this.byDimension({prefixLength: 1, suffixLength: 2}))
-    const oneByThrees = filteredResults.filter(this.byDimension({prefixLength: 1, suffixLength: 3}))
-    const twoByOnes = filteredResults.filter(this.byDimension({prefixLength: 2, suffixLength: 1}))
-    const twoByTwos = filteredResults.filter(this.byDimension({prefixLength: 2, suffixLength: 2}))
-    const twoByThrees = filteredResults.filter(this.byDimension({prefixLength: 2, suffixLength: 3}))
+    const oneByTwos = this.props.results.filter(this.byDimension({prefixLength: 1, suffixLength: 2}))
+    const oneByThrees = this.props.results.filter(this.byDimension({prefixLength: 1, suffixLength: 3}))
+    const twoByOnes = this.props.results.filter(this.byDimension({prefixLength: 2, suffixLength: 1}))
+    const twoByTwos = this.props.results.filter(this.byDimension({prefixLength: 2, suffixLength: 2}))
+    const twoByThrees = this.props.results.filter(this.byDimension({prefixLength: 2, suffixLength: 3}))
     const sumOfSplitLengths = oneByTwos.length + oneByThrees.length + twoByOnes.length + twoByTwos.length + twoByThrees.length
-    console.log('Split callsigns, length sum is',sumOfSplitLengths,'total length is',filteredResults.length)
+    console.log('Split callsigns, length sum is',sumOfSplitLengths,'total length is',this.props.results.length)
     return(
       <div className='resultsWrapper'>
         <span className='resultsMeta'>
         <h1 className='textSearched'>{this.props.textSearched}</h1>
-        <div className='filterControls'>
+        {/* <div className='filterControls'>
           <FormGroup id='regions'>{
             [...Array(10)].map( (el, i) => {
               return <Checkbox inline
@@ -123,7 +123,7 @@ class ResultsList extends Component {
                 {letter}
               </Checkbox>})
           }</FormGroup>
-        </div>
+        </div> */}
       </span>
         <div className='resultsGroups'>
           <ResultsGroup title='1x2s' results={oneByTwos} />

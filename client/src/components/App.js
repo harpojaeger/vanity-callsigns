@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import SearchForm from './SearchForm'
 import ResultsList from './ResultsList'
-import LoadMoreButton from './LoadMoreButton'
+// import LoadMoreButton from './LoadMoreButton'
 import '../style/App.css';
-import api from '../utils/api'
+// import api from '../utils/api'
 import generate from '../utils/generate'
 
 class App extends Component {
