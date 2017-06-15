@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Checkbox} from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import Callsign from './Callsign'
 import '../style/ResultsList.css'
@@ -27,29 +28,96 @@ function ResultsGroup(props) {
 class ResultsList extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      // filterParams: defaultFilterState
-    }
     this.byDimension = this.byDimension.bind(this)
+    this.filterResults = this.filterResults.bind(this)
+    this.handleRegionFilterControlUpdate = this.handleRegionFilterControlUpdate.bind(this)
+    this.handleLetterFilterControlUpdate = this.handleLetterFilterControlUpdate.bind(this)
+    const initialFilterState = {
+      letters: {
+        A: true,
+        K: true,
+        N: true,
+        W: true
+      },
+      regions: {
+        0: true,
+        1: true,
+        2: true,
+        3: true,
+        4: true,
+        5: true,
+        6: true,
+        7: true,
+        8: true,
+        9: true
+      }
+    }
+    this.state = {
+      initialfilterState: initialFilterState,
+      filterState: initialFilterState
+    }
   }
-  byDimension(callsign) {
-    return (callsign, filterParams) => {
+  byDimension(filterParams) {
+    return (callsign) => {
       return callsign.prefix.length === filterParams.prefixLength && callsign.suffix.length === filterParams.suffixLength
     }
   }
-
+  handleRegionFilterControlUpdate(e) {
+    const region = e.target.name
+    this.setState( (prevState) => {
+      var newState = prevState
+      newState.filterState.regions[region] = !newState.filterState.regions[region]
+      return newState
+    })
+  }
+  handleLetterFilterControlUpdate(e) {
+    const letter = e.target.name
+    this.setState( (prevState) => {
+      var newState = prevState
+      newState.filterState.letters[letter] = !newState.filterState.letters[letter]
+      return newState
+    })
+  }
+  filterResults(result) {
+    return this.state.filterState.regions[result.region] && this.state.filterState.letters[result.prefix.substring(0,1)]
+  }
+  componentWillReceiveProps() {
+    //reset the filter here
+  }
   render(){
-    // Split the callsigns up into grops by dimension.
-    const oneByTwos = this.props.results.filter(this.byDimension({prefixLength: 1, suffixLength: 2}))
-    const oneByThrees = this.props.results.filter(this.byDimension, {prefixLength: 1, suffixLength: 3})
-    const twoByOnes = this.props.results.filter(this.byDimension, {prefixLength: 2, suffixLength: 1})
-    const twoByTwos = this.props.results.filter(this.byDimension, {prefixLength: 2, suffixLength: 2})
-    const twoByThrees = this.props.results.filter(this.byDimension, {prefixLength: 2, suffixLength: 3})
+    // Placeholder for the filter function
+    var filteredResults = this.props.results.filter(this.filterResults)
 
-    // const sumOfSplitLengths = oneByTwos.length + oneByThrees.length + twoByOnes.length + twoByTwos.length + twoByThrees.length
-    // console.log('Split callsigns, length sum is',sumOfSplitLengths,'total length is',this.props.results.length)
-    return (
+    // Split the callsigns up into groups by dimension.
+    const oneByTwos = filteredResults.filter(this.byDimension({prefixLength: 1, suffixLength: 2}))
+    const oneByThrees = filteredResults.filter(this.byDimension({prefixLength: 1, suffixLength: 3}))
+    const twoByOnes = filteredResults.filter(this.byDimension({prefixLength: 2, suffixLength: 1}))
+    const twoByTwos = filteredResults.filter(this.byDimension({prefixLength: 2, suffixLength: 2}))
+    const twoByThrees = filteredResults.filter(this.byDimension({prefixLength: 2, suffixLength: 3}))
+    const sumOfSplitLengths = oneByTwos.length + oneByThrees.length + twoByOnes.length + twoByTwos.length + twoByThrees.length
+    console.log('Split callsigns, length sum is',sumOfSplitLengths,'total length is',filteredResults.length)
+    return(
       <div>
+        {
+          [...Array(10)].map( (el, i) => {
+            return <Checkbox
+              key={'region-'+i}
+              onChange={this.handleRegionFilterControlUpdate}
+              name={i}
+              checked={this.state.filterState.regions[i]}>
+                {i}
+              </Checkbox> })
+        }
+        {
+        ['A','K','N','W'].map( (letter) => {
+          return <Checkbox
+            key={'letter-'+letter}
+            onChange={this.handleLetterFilterControlUpdate}
+            name={letter}
+            checked={this.state.filterState.letters[letter]}>
+              {letter}
+            </Checkbox>})
+        }
         <ResultsGroup title='1x2s' results={oneByTwos} />
         <ResultsGroup title='2x1s' results={twoByOnes} />
         <ResultsGroup title='1x3s' results={oneByThrees} />
