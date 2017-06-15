@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, FormControl,FormGroup }  from 'react-bootstrap'
+import {FormControl, FormGroup }  from 'react-bootstrap'
 import '../style/SearchForm.css'
 import PropTypes from 'prop-types'
 
@@ -28,7 +28,7 @@ class SearchForm extends Component {
       }
     }
     this.searchTextChanged = this.searchTextChanged.bind(this)
-    this.searchFormSubmitted = this.searchFormSubmitted.bind(this)
+    this.searchFormChanged = this.searchFormChanged.bind(this)
     this.searchFilterChanged = this.searchFilterChanged.bind(this)
     this.multiSelectChanged = this.multiSelectChanged.bind(this)
   }
@@ -56,8 +56,7 @@ class SearchForm extends Component {
       return newState
     })
   }
-  searchFormSubmitted(e) {
-    e.preventDefault()
+  searchFormChanged(e) {
     const search_letters = this.state.s.toUpperCase().split('')
     const first_letters = Object.keys(this.state.letters).filter( l => { return this.state.letters[l] })
     const search_regions = Object.keys(this.state.regions).filter(r => { return this.state.regions[r] })
@@ -72,8 +71,9 @@ class SearchForm extends Component {
   render() {
     return (
       <div className='searchContentWrapper'>
-        <form className='searchForm'>
+        <form className='searchForm' onChange={this.searchFormChanged}>
           <FormGroup className='letters'>
+            <h4>Prefix</h4>
             <FormControl
               componentClass="select"
               multiple
@@ -85,28 +85,29 @@ class SearchForm extends Component {
             </FormControl>
           </FormGroup>
           <FormGroup className='regions'>
+            <h4>Region</h4>
             <FormControl
               componentClass="select"
               multiple
               name='regions'
               onChange={this.multiSelectChanged}>
-                {[...Array(10).keys()].map( (l) => {
-                  return <option key={l} value={l}>{l}</option>
-                })}
-              </FormControl>
-            </FormGroup>
-          <FormControl type='text' className='search' value={this.state.s} onChange={this.searchTextChanged} disabled={this.props.searchIsRunning}/>
-          <Button disabled={this.props.searchIsRunning} type='submit' value='search' onClick={this.searchFormSubmitted}>{this.props.searchIsRunning ? 'Searching...' : 'Search' }</Button>
+              {[...Array(10).keys()].map( (l) => {
+                return <option key={l} value={l}>{l}</option>
+              })}
+            </FormControl>
+          </FormGroup>
+          <FormGroup>
+            <h4>Search text</h4>
+            <FormControl type='text' className='search' value={this.state.s} onChange={this.searchTextChanged} disabled={this.props.searchIsRunning}/>
+          </FormGroup>
         </form>
       </div>
     )
   }
 }
 
-
 SearchForm.propTypes = {
   doSearch: PropTypes.func.isRequired,
-  searchIsRunning: PropTypes.bool.isRequired
 }
 
 export default SearchForm

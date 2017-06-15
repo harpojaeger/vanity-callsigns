@@ -8,11 +8,6 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      offset: 0,
-      resultsPerPage: 50,
-      moreResultsAreLoading: false,
-      searchIsRunning: false,
-      showLoadMoreButton: false,
       results: []
     }
     this.generateCallsigns = this.generateCallsigns.bind(this)
@@ -28,9 +23,9 @@ class App extends Component {
           <h2>Vanity callsign search</h2>
         </div>
         <div className='content-wrapper'>
-          <SearchForm searchIsRunning={this.state.searchIsRunning} doSearch={this.generateCallsigns}/>
+          <SearchForm doSearch={this.generateCallsigns}/>
           {this.state.results.length > 0 &&
-            <ResultsList textSearched={this.state.textSearched} results={this.state.results} />
+            <ResultsList results={this.state.results} />
           }
         </div>
       </div>
