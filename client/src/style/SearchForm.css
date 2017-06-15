@@ -9,8 +9,8 @@ form.searchForm {
   display: flex;
   padding-top: 10px;
   justify-content: center;
-  flex-basis: content;
   flex-wrap: wrap;
+  width: 100%;
 }
 form.searchForm button {
   margin-left: 10px;
@@ -18,7 +18,24 @@ form.searchForm button {
 form.searchForm input {
   width: 110px;
 }
-div.checkbox{
+div.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-right: 10px;
+  max-width: 150px;
+}
+span.input-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.form-group h4 {
+  display: block;
+  width: 100%;
+}
+/*div.checkbox{
   margin: auto 0 auto 5px;
 }
 div.validationMessages {
@@ -35,4 +52,4 @@ li.validationMessageListItem{
   list-style-type: none;
   margin:0;
   padding: 0;
-}
+}*/

@@ -101,7 +101,6 @@ class ResultsList extends Component {
     return(
       <div className='resultsWrapper'>
         <span className='resultsMeta'>
-        <h1 className='textSearched'>{this.props.textSearched}</h1>
         {/* <div className='filterControls'>
           <FormGroup id='regions'>{
             [...Array(10)].map( (el, i) => {
@@ -149,7 +148,6 @@ ResultsGroup.propTypes = {
 }
 
 ResultsList.propTypes = {
-  textSearched: PropTypes.string.isRequired,
   results: PropTypes.arrayOf(PropTypes.shape({
     prefix: PropTypes.string.isRequired,
     suffix: PropTypes.string.isRequired,
