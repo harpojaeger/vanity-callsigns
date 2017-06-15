@@ -63,6 +63,7 @@ class ResultsList extends Component {
     }
   }
   handleRegionFilterControlUpdate(e) {
+    console.log(e.target)
     const region = e.target.name
     this.setState( (prevState) => {
       var newState = prevState
@@ -71,6 +72,7 @@ class ResultsList extends Component {
     })
   }
   handleLetterFilterControlUpdate(e) {
+    console.log(e.target)
     const letter = e.target.name
     this.setState( (prevState) => {
       var newState = prevState
@@ -101,7 +103,7 @@ class ResultsList extends Component {
         <span className='resultsMeta'>
         <h1 className='textSearched'>{this.props.textSearched}</h1>
         <div className='filterControls'>
-          <FormGroup>{
+          <FormGroup id='regions'>{
             [...Array(10)].map( (el, i) => {
               return <Checkbox inline
                 key={'region-'+i}
@@ -111,7 +113,7 @@ class ResultsList extends Component {
                   {i}
                 </Checkbox> })
           }</FormGroup>
-          <FormGroup>{
+          <FormGroup id='letters'>{
           ['A','K','N','W'].map( (letter) => {
             return <Checkbox inline
               key={'letter-'+letter}
