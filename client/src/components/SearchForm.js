@@ -99,6 +99,7 @@ class SearchForm extends Component {
             <h4>Search text</h4>
             <FormControl type='text' className='search' value={this.state.s} onChange={this.searchTextChanged} disabled={this.props.searchIsRunning}/>
             <Button disabled={this.props.searchIsRunning} type='submit' value='search' onClick={this.searchFormSubmitted}>{this.props.searchIsRunning ? 'Searching...' : 'Search' }</Button>
+            <div className='statusText'>{this.props.statusText}</div>
           </FormGroup>
         </form>
       </div>
@@ -108,6 +109,7 @@ class SearchForm extends Component {
 
 SearchForm.propTypes = {
   doSearch: PropTypes.func.isRequired,
+  statusText: PropTypes.string
 }
 
 export default SearchForm

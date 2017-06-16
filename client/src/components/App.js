@@ -10,48 +10,52 @@ class App extends Component {
     super(props)
     this.state = {
       results: {},
+      callsignsAreGenerating: false,
       statusesAreLoading: false,
     }
     this.generateCallsigns = this.generateCallsigns.bind(this)
     this.fetchCallsignInfo = this.fetchCallsignInfo.bind(this)
   }
   generateCallsigns(params) {
+    this.setState( {callsignsAreGenerating: true })
     generate.generate(params)
     .then( (res) => {
-      this.setState({results: res})
+      this.setState({
+        results: res,
+        callsignsAreGenerating: false
+      })
       this.fetchCallsignInfo(res)
     })
   }
   fetchCallsignInfo(results) {
     console.log('Starting API request for callsign statuses')
     this.setState( {statusesAreLoading: true })
-    const callsigns = Object.keys(results)
-    var i,j,temparray,chunk = 15
-    for (i=0,j=callsigns.length; i<j; i+=chunk) {
-      temparray = callsigns.slice(i,i+chunk);
-      // console.log('chunk:', temparray)
-      api.bulkSearch(temparray)
-      .then( (res) => {
-        // console.log('Completed API query with results', res)
-        this.setState( (prevState) => {
-          let newState = prevState
-          res.forEach( (result) => {
-            newState.results[result.callsign].rollup_status_code = result.rollup_status_code
-          })
-          return newState
+    api.bulkSearch(Object.keys(results))
+    .then( (res) => {
+      this.setState( (prevState) => {
+        let newState = prevState
+        res.forEach( (result) => {
+          newState.results[result.callsign].rollup_status_code = result.rollup_status_code
         })
+        newState.statusesAreLoading = false
+        return newState
       })
-    }
-    this.setState({ statusesAreLoading: false })
+    })
   }
   render() {
+    var searchStatusText = ''
+    if(this.state.callsignsAreGenerating) searchStatusText = 'Loading callsigns...'
+    else if(this.state.statusesAreLoading) searchStatusText = 'Loading callsign data...'
     return (
       <div className="App">
         <div className="App-header">
           <h2>Vanity callsign search</h2>
         </div>
         <div className='content-wrapper'>
-          <SearchForm doSearch={this.generateCallsigns}/>
+          <SearchForm
+            doSearch={this.generateCallsigns}
+            statusText={searchStatusText}
+          />
           {Object.keys(this.state.results).length > 0 &&
             <ResultsList results={this.state.results} />
           }
