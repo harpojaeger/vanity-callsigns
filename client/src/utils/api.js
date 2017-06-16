@@ -27,6 +27,6 @@ function bulkSearch(callsigns) {
 }
 
 export default {
-  doSearch: doSearch
+  doSearch: doSearch,
   bulkSearch: bulkSearch
 }
