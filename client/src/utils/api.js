@@ -1,19 +1,7 @@
 import axios from 'axios'
 
-function doSearch(params) {
-  return axios.get('/callsigns', { params: params })
-  .then( (res) => {
-    console.log('API: got',res)
-    return res.data
-  })
-  .catch( (e) => {
-    console.error('Error fetching callsign data',e)
-    return null
-  })
-}
-
 function bulkSearch(callsigns) {
-  return axios.get('/search-bulk', {params: {
+  return axios.get('/search', {params: {
     callsigns: callsigns.join(',')
   }})
   .then( (res) => {
@@ -27,6 +15,5 @@ function bulkSearch(callsigns) {
 }
 
 export default {
-  doSearch: doSearch,
   bulkSearch: bulkSearch
 }
