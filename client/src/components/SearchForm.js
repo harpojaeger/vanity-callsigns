@@ -100,9 +100,8 @@ class SearchForm extends Component {
             <FormControl type='text' className='search' value={this.state.s} onChange={this.searchTextChanged} disabled={this.props.searchIsRunning}/>
             <Button disabled={
               // Disable the submit button unless ALL of the following are true: at least one region is selected, at least one first letter is selected, and 2-4 characters are entered in the search field.
-              !Object.values(this.state.regions).some( b => b ) || !Object.values(this.state.letters).some( b => b ) || this.state.s.length < 2 || this.state.s.length > 4
-            } type='submit' value='search' onClick={this.searchFormSubmitted}>{this.props.searchIsRunning ? 'Searching...' : 'Search' }</Button>
-            <div className='statusText'>{this.props.statusText}</div>
+              !Object.values(this.state.regions).some( b => b ) || !Object.values(this.state.letters).some( b => b ) || this.state.s.length < 2 || this.state.s.length > 4 || this.props.statusText
+            } type='submit' value='search' onClick={this.searchFormSubmitted}>{this.props.statusText || 'Search'}</Button>
           </FormGroup>
         </form>
       </div>

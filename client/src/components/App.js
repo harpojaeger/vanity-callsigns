@@ -43,9 +43,9 @@ class App extends Component {
     })
   }
   render() {
-    var searchStatusText = ''
-    if(this.state.callsignsAreGenerating) searchStatusText = 'Loading callsigns...'
-    else if(this.state.statusesAreLoading) searchStatusText = 'Loading callsign data...'
+    var searchButtonText = ''
+    if(this.state.callsignsAreGenerating) searchButtonText = 'Loading callsigns...'
+    else if(this.state.statusesAreLoading) searchButtonText = 'Loading callsign data...'
     return (
       <div className="App">
         <div className="App-header">
@@ -54,7 +54,7 @@ class App extends Component {
         <div className='content-wrapper'>
           <SearchForm
             doSearch={this.generateCallsigns}
-            statusText={searchStatusText}
+            statusText={searchButtonText}
           />
           {Object.keys(this.state.results).length > 0 &&
             <ResultsList results={this.state.results} />
