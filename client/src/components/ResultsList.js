@@ -8,17 +8,19 @@ function ResultsGroup(props) {
     <div>
       {props.results.length > 0 && <h2 className='resultsGroupHeading'>{props.title}</h2>}
       <ul className='resultsGroup'>
-        {props.results.map( (res) => {
-          const callsign = res.prefix.concat(res.region, res.suffix)
-          return <Callsign
+        {
+          Object.keys(props.results).map( (callsign) => {
+            const attrs = props.results[callsign]
+            // console.log('for callsign',callsign,'got props',props.results[callsign])
+            return <Callsign
             key={callsign}
             callsign={callsign}
-            prefix={res.prefix}
-            region={res.region}
-            suffix={res.suffix}
-            rollup_status_code={res.rollup_status_code}
-          />
-        })}
+            prefix={attrs.prefix}
+            region={attrs.region}
+            suffix={attrs.suffix}
+            rollup_status_code={attrs.rollup_status_code}/>
+          })
+        }
       </ul>
     </div>
   )
@@ -28,21 +30,35 @@ class ResultsList extends Component {
   constructor(props){
     super(props)
     this.byDimension = this.byDimension.bind(this)
+    this.byDimensionObj = this.byDimensionObj.bind(this)
   }
   byDimension(filterParams) {
     return (callsign) => {
       return callsign.prefix.length === filterParams.prefixLength && callsign.suffix.length === filterParams.suffixLength
     }
   }
+  byDimensionObj(obj, prefixLength, suffixLength) {
+    // console.log('byDimensionObj called with',obj)
+    const objKeys = Object.keys(obj)
+    // console.log('calculated keys', objKeys)
+    var filtered = objKeys.reduce( (acc, val) => {
+      // console.log('params:', prefixLength, suffixLength)
+      // console.log('val is',val)
+      // console.log('obj val is',obj[val])
+      // console.log('acc is', acc)
+      if((obj[val].prefix.length === prefixLength) && (obj[val].suffix.length === suffixLength)) acc[val] = obj[val]
+      // console.log('after assignment: acc is', acc)
+      return acc
+    }, {})
+    return filtered
+
+  }
   render(){
-    // Split the callsigns up into groups by dimension.
-    const oneByTwos = this.props.results.filter(this.byDimension({prefixLength: 1, suffixLength: 2})).sort()
-    const oneByThrees = this.props.results.filter(this.byDimension({prefixLength: 1, suffixLength: 3}))
-    const twoByOnes = this.props.results.filter(this.byDimension({prefixLength: 2, suffixLength: 1}))
-    const twoByTwos = this.props.results.filter(this.byDimension({prefixLength: 2, suffixLength: 2}))
-    const twoByThrees = this.props.results.filter(this.byDimension({prefixLength: 2, suffixLength: 3}))
-    const sumOfSplitLengths = oneByTwos.length + oneByThrees.length + twoByOnes.length + twoByTwos.length + twoByThrees.length
-    console.log('Split callsigns, length sum is',sumOfSplitLengths,'total length is',this.props.results.length)
+    const oneByTwos = this.byDimensionObj(this.props.results, 1, 2)
+    const oneByThrees = this.byDimensionObj(this.props.results, 1, 3)
+    const twoByOnes = this.byDimensionObj(this.props.results, 2, 1)
+    const twoByTwos = this.byDimensionObj(this.props.results, 2, 2)
+    const twoByThrees = this.byDimensionObj(this.props.results, 2, 3)
     return(
       <div className='resultsWrapper'>
         <div className='resultsGroups'>
@@ -59,21 +75,19 @@ class ResultsList extends Component {
 }
 
 ResultsGroup.propTypes = {
-  title: PropTypes.string.isRequired,
-  results: PropTypes.arrayOf(PropTypes.shape({
+  results: PropTypes.objectOf(PropTypes.shape({
     prefix: PropTypes.string.isRequired,
     suffix: PropTypes.string.isRequired,
     region: PropTypes.number.isRequired,
     rollup_status_code: PropTypes.string
-  }))
+  })).isRequired
 }
 
 ResultsList.propTypes = {
-  results: PropTypes.arrayOf(PropTypes.shape({
+  results: PropTypes.objectOf(PropTypes.shape({
     prefix: PropTypes.string.isRequired,
     suffix: PropTypes.string.isRequired,
     region: PropTypes.number.isRequired,
-    callsign: PropTypes.string.isRequired,
     rollup_status_code: PropTypes.string
   })).isRequired
 }

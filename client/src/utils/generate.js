@@ -27,22 +27,20 @@ const generate = function generate(params) {
           } else if(callsign.search(disallowedAPrefixes) !== -1) {
             // console.log('Callsign',callsign,'flunked A prefix test')
           } else {
-
             callsigns.add(callsign)
           }
         })
       }
     })
     console.log('Generated', callsigns.size, 'valid callsigns.',callsigns)
-    let unique = []
+    let unique = {}
     callsigns.forEach( (callsign) => {
       const digitIndex = callsign.search(/\d/)
-      unique.push({
+      unique[callsign]={
         prefix: callsign.substr(0, digitIndex),
         region: parseInt(callsign.substr(digitIndex, 1), 10),
         suffix: callsign.substr(digitIndex+1),
-        callsign: callsign
-      })
+      }
     })
     resolve(unique)
   })

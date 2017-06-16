@@ -27,7 +27,7 @@ class App extends Component {
         </div>
         <div className='content-wrapper'>
           <SearchForm doSearch={this.generateCallsigns}/>
-          {this.state.results.length > 0 &&
+          {Object.keys(this.state.results).length > 0 &&
             <ResultsList results={this.state.results} />
           }
         </div>
