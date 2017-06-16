@@ -6,7 +6,7 @@ import '../style/ResultsList.css'
 function ResultsGroup(props) {
   return(
     <div>
-      {props.results.length > 0 && <h2 className='resultsGroupHeading'>{props.title}</h2>}
+      {Object.keys(props.results).length > 0 && <h2 className='resultsGroupHeading'>{props.title}</h2>}
       <ul className='resultsGroup'>
         {
           Object.keys(props.results).map( (callsign) => {
