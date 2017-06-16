@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {FormControl, FormGroup }  from 'react-bootstrap'
+import {Button, FormControl, FormGroup }  from 'react-bootstrap'
 import '../style/SearchForm.css'
 import PropTypes from 'prop-types'
 
@@ -28,7 +28,7 @@ class SearchForm extends Component {
       }
     }
     this.searchTextChanged = this.searchTextChanged.bind(this)
-    this.searchFormChanged = this.searchFormChanged.bind(this)
+    this.searchFormSubmitted = this.searchFormSubmitted.bind(this)
     this.searchFilterChanged = this.searchFilterChanged.bind(this)
     this.multiSelectChanged = this.multiSelectChanged.bind(this)
   }
@@ -56,12 +56,11 @@ class SearchForm extends Component {
       return newState
     })
   }
-  searchFormChanged(e) {
+  searchFormSubmitted(e) {
+    e.preventDefault()
     const search_letters = this.state.s.toUpperCase().split('')
     const first_letters = Object.keys(this.state.letters).filter( l => { return this.state.letters[l] })
     const search_regions = Object.keys(this.state.regions).filter(r => { return this.state.regions[r] })
-
-    console.log(search_regions)
     this.props.doSearch({
       search_letters: search_letters,
       search_regions: search_regions,
@@ -71,7 +70,7 @@ class SearchForm extends Component {
   render() {
     return (
       <div className='searchContentWrapper'>
-        <form className='searchForm' onChange={this.searchFormChanged}>
+        <form className='searchForm'>
           <FormGroup className='letters'>
             <h4>Prefix</h4>
             <FormControl
@@ -99,6 +98,7 @@ class SearchForm extends Component {
           <FormGroup>
             <h4>Search text</h4>
             <FormControl type='text' className='search' value={this.state.s} onChange={this.searchTextChanged} disabled={this.props.searchIsRunning}/>
+            <Button disabled={this.props.searchIsRunning} type='submit' value='search' onClick={this.searchFormSubmitted}>{this.props.searchIsRunning ? 'Searching...' : 'Search' }</Button>
           </FormGroup>
         </form>
       </div>

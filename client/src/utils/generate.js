@@ -7,8 +7,8 @@ const generate = function generate(params) {
     const search_letters = params.search_letters
     const search_regions = params.search_regions
     const first_letters = params.first_letters
-    // const all_regions = '0123456789'.split('')
-    var callsigns = []
+    // Ensure we only return unique callsigns, so use a Set
+    var callsigns = new Set()
 
     const disallowedAPrefixes = /^A[L-Z]?\d/i
     const isValidCallsign = /^[AKNW][a-z]?\d[a-z]{1,3}$/i
@@ -27,19 +27,24 @@ const generate = function generate(params) {
           } else if(callsign.search(disallowedAPrefixes) !== -1) {
             // console.log('Callsign',callsign,'flunked A prefix test')
           } else {
-            const digitIndex=callsign.search(/\d/)
-            callsigns.push({
-              prefix: callsign.substr(0, digitIndex),
-              region: parseInt(callsign.substr(digitIndex, 1), 10),
-              suffix: callsign.substr(digitIndex+1),
-              callsign: callsign
-            })
+
+            callsigns.add(callsign)
           }
         })
       }
     })
-    console.log('Generated', callsigns.length, 'valid callsigns.',callsigns)
-    resolve(callsigns)
+    console.log('Generated', callsigns.size, 'valid callsigns.',callsigns)
+    let unique = []
+    callsigns.forEach( (callsign) => {
+      const digitIndex = callsign.search(/\d/)
+      unique.push({
+        prefix: callsign.substr(0, digitIndex),
+        region: parseInt(callsign.substr(digitIndex, 1), 10),
+        suffix: callsign.substr(digitIndex+1),
+        callsign: callsign
+      })
+    })
+    resolve(unique)
   })
 }
 
