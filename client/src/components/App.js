@@ -9,7 +9,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      results: {}
+      results: {},
+      statusesAreLoading: false,
     }
     this.generateCallsigns = this.generateCallsigns.bind(this)
     this.fetchCallsignInfo = this.fetchCallsignInfo.bind(this)
@@ -23,17 +24,25 @@ class App extends Component {
   }
   fetchCallsignInfo(results) {
     console.log('Starting API request for callsign statuses')
-    api.bulkSearch(Object.keys(results))
-    .then( (res) => {
-      console.log('Completed API query with results', res)
-      this.setState( (prevState) => {
-        let newState = prevState
-        res.forEach( (result) => {
-          newState.results[result.callsign].rollup_status_code = result.rollup_status_code
+    this.setState( {statusesAreLoading: true })
+    const callsigns = Object.keys(results)
+    var i,j,temparray,chunk = 15
+    for (i=0,j=callsigns.length; i<j; i+=chunk) {
+      temparray = callsigns.slice(i,i+chunk);
+      // console.log('chunk:', temparray)
+      api.bulkSearch(temparray)
+      .then( (res) => {
+        // console.log('Completed API query with results', res)
+        this.setState( (prevState) => {
+          let newState = prevState
+          res.forEach( (result) => {
+            newState.results[result.callsign].rollup_status_code = result.rollup_status_code
+          })
+          return newState
         })
-        return newState
       })
-    })
+    }
+    this.setState({ statusesAreLoading: false })
   }
   render() {
     return (
