@@ -16,6 +16,9 @@ class App extends Component {
     generate.generate(params)
     .then( res => this.setState({results: res}))
   }
+  fetchCallsignInfo(results) {
+
+  }
   render() {
     return (
       <div className="App">

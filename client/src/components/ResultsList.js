@@ -73,6 +73,7 @@ ResultsList.propTypes = {
     prefix: PropTypes.string.isRequired,
     suffix: PropTypes.string.isRequired,
     region: PropTypes.number.isRequired,
+    callsign: PropTypes.string.isRequired,
     rollup_status_code: PropTypes.string
   })).isRequired
 }

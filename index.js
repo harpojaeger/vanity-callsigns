@@ -22,6 +22,9 @@ app.get('/', (req, res) => {
 const search = require('./search')
 app.use('/callsigns', search)
 
+const searchBulk = require('./search-bulk')
+app.use('/search-bulk', searchBulk)
+
 app.get('*', (req, res) => {
   res.sendStatus(404)
 })
