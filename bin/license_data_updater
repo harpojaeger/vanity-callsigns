@@ -6,6 +6,6 @@ unzip /tmp/l_amat.zip HD.dat -d /tmp
 cat /app/bin/l_am_headings.csv /tmp/HD.dat > /tmp/HD-headed.dat
 psql $DATABASE_URL -c "DROP TABLE IF EXISTS import.amateur"
 /app/bin/pgfutter_linux --ignore-errors --table amateur csv -d \| /tmp/HD-headed.dat
-DROP TABLE IF EXISTS licenses.amateur;
+psql $DATABASE_URL -c "DROP TABLE IF EXISTS licenses.amateur;
 ALTER TABLE import.amateur SET SCHEMA licenses;"
 rm -f /tmp/l_amat.zip /tmp/HD*.dat
