@@ -32,6 +32,7 @@ class App extends Component {
     this.setState( {statusesAreLoading: true })
     api.bulkSearch(Object.keys(results))
     .then( (res) => {
+      console.log('fetchCallsignInfo received', res)
       this.setState( (prevState) => {
         let newState = prevState
         res.forEach( (result) => {
