@@ -2,12 +2,9 @@
 wget -cO /tmp/l_amat.zip http://wireless.fcc.gov/uls/data/complete/l_amat.zip
 #Unzip just the file we're interested in
 unzip /tmp/l_amat.zip HD.dat -d /tmp
-cat l_am_headings.csv /tmp/HD.dat > /tmp/HD-headed.dat
-
-
-# psql $DATABASE_URL -c "DROP TABLE IF EXISTS import.amateur_licenses"
-# /app/bin/pgfutter_linux --ignore-errors --table amateur csv /tmp/amateur_licenses.csv
-# psql $DATABASE_URL -c "DELETE FROM import.amateur WHERE radio_service_desc <> 'Amateur';
+cat /app/bin/l_am_headings.csv /tmp/HD.dat > /tmp/HD-headed.dat
+psql $DATABASE_URL -c "DROP TABLE IF EXISTS import.amateurNew"
+/app/bin/pgfutter_linux --ignore-errors --table amateurNew csv -d \| /tmp/HD-headed.dat
 # DROP TABLE IF EXISTS licenses.amateur;
 # ALTER TABLE import.amateur SET SCHEMA licenses;"
 # rm -f /tmp/licenses*
