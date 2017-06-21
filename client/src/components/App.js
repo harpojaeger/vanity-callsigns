@@ -35,6 +35,7 @@ class App extends Component {
       this.setState( (prevState) => {
         let newState = prevState
         res.forEach( (result) => {
+          console.log('setting', result.callsign, 'status to', result.license_status)
           newState.results[result.callsign].license_status = result.license_status
         })
         newState.statusesAreLoading = false
