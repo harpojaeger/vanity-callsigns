@@ -35,7 +35,7 @@ class App extends Component {
       this.setState( (prevState) => {
         let newState = prevState
         res.forEach( (result) => {
-          newState.results[result.callsign].rollup_status_code = result.rollup_status_code
+          newState.results[result.callsign].license_status = result.license_status
         })
         newState.statusesAreLoading = false
         return newState

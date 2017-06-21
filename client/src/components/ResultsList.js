@@ -18,7 +18,7 @@ function ResultsGroup(props) {
             prefix={attrs.prefix}
             region={attrs.region}
             suffix={attrs.suffix}
-            rollup_status_code={attrs.rollup_status_code}/>
+            license_status={attrs.license_status}/>
           })
         }
       </ul>
@@ -79,7 +79,7 @@ ResultsGroup.propTypes = {
     prefix: PropTypes.string.isRequired,
     suffix: PropTypes.string.isRequired,
     region: PropTypes.number.isRequired,
-    rollup_status_code: PropTypes.string
+    license_status: PropTypes.string
   })).isRequired
 }
 
@@ -88,7 +88,7 @@ ResultsList.propTypes = {
     prefix: PropTypes.string.isRequired,
     suffix: PropTypes.string.isRequired,
     region: PropTypes.number.isRequired,
-    rollup_status_code: PropTypes.string
+    license_status: PropTypes.string
   })).isRequired
 }
 

@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
   const callsigns = req.query.callsigns.split(',')
   console.log('Bulk callsign search received', callsigns)
   knex('licenses.amateur')
-  .select('callsign','rollup_status_code')
+  .select('callsign','license_status')
   .whereIn('callsign',callsigns)
   .then( (rows) => {
     res.send(rows)
