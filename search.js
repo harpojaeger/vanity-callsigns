@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
   const callsigns = req.query.callsigns.split(',')
   console.log('Bulk callsign search received', callsigns)
   knex('licenses.amateur')
-  .select(knex.raw('distinct on (callsign) callsign, license_status, effective_date'))
+  .select(knex.raw('distinct on (callsign) callsign, license_status, effective_date, cancellation_date, expired_date'))
   .whereIn('callsign',callsigns)
   .orderByRaw("callsign, NULLIF(effective_date, '')::date desc")
   .then( (rows) => {

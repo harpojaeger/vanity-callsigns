@@ -36,8 +36,12 @@ class App extends Component {
       this.setState( (prevState) => {
         let newState = prevState
         res.forEach( (result) => {
-          console.log('setting', result.callsign, 'status to', result.license_status)
-          newState.results[result.callsign].license_status = result.license_status
+          Object.keys(result).forEach( (key) => {
+            if(result[key] !== '' && key !== 'callsign') {
+              console.log('setting', result.callsign,key,'to',result[key])
+              newState.results[result.callsign][key] = result[key]
+            }
+          })
         })
         newState.statusesAreLoading = false
         return newState
