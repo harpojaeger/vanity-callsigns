@@ -18,7 +18,10 @@ function ResultsGroup(props) {
             prefix={attrs.prefix}
             region={attrs.region}
             suffix={attrs.suffix}
-            license_status={attrs.license_status}/>
+            license_status={attrs.license_status}
+            expired_date={attrs.expired_date}
+            cancellation_date={attrs.cancellation_date}
+            effective_date={attrs.cancellation_date}/>
           })
         }
       </ul>
@@ -74,22 +77,20 @@ class ResultsList extends Component {
 
 }
 
-ResultsGroup.propTypes = {
+const resultsProps = {
   results: PropTypes.objectOf(PropTypes.shape({
     prefix: PropTypes.string.isRequired,
     suffix: PropTypes.string.isRequired,
     region: PropTypes.number.isRequired,
-    license_status: PropTypes.string
+    license_status: PropTypes.string,
+    cancellation_date: PropTypes.string,
+    effective_date: PropTypes.string,
+    expired_date: PropTypes.string,
   })).isRequired
 }
 
-ResultsList.propTypes = {
-  results: PropTypes.objectOf(PropTypes.shape({
-    prefix: PropTypes.string.isRequired,
-    suffix: PropTypes.string.isRequired,
-    region: PropTypes.number.isRequired,
-    license_status: PropTypes.string
-  })).isRequired
-}
+ResultsGroup.propTypes = resultsProps
+
+ResultsList.propTypes = resultsProps
 
 export default ResultsList
