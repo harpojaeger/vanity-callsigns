@@ -21,7 +21,13 @@ function ResultsGroup(props) {
             license_status={attrs.license_status}
             expired_date={attrs.expired_date}
             cancellation_date={attrs.cancellation_date}
-            effective_date={attrs.cancellation_date}/>
+            effective_date={attrs.cancellation_date}
+            certifier_first_name={attrs.certifier_first_name}
+            certifier_mi={attrs.certifier_mi}
+            certifier_last_name={attrs.certifier_last_name}
+            certifier_suffix={attrs.certifier_suffix}
+            grant_date={attrs.grant_date}
+          />
           })
         }
       </ul>
@@ -86,6 +92,11 @@ const resultsProps = {
     cancellation_date: PropTypes.string,
     effective_date: PropTypes.string,
     expired_date: PropTypes.string,
+    certifier_first_name: PropTypes.string,
+    certifier_mi: PropTypes.string,
+    certifier_last_name: PropTypes.string,
+    certifier_suffix: PropTypes.string,
+    grant_date: PropTypes.string,
   })).isRequired
 }
 

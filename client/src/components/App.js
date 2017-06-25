@@ -28,17 +28,17 @@ class App extends Component {
     })
   }
   fetchCallsignInfo(results) {
-    console.log('Starting API request for callsign statuses')
+    // console.log('Starting API request for callsign statuses')
     this.setState( {statusesAreLoading: true })
     api.bulkSearch(Object.keys(results))
     .then( (res) => {
-      console.log('fetchCallsignInfo received', res)
+      // console.log('fetchCallsignInfo received', res)
       this.setState( (prevState) => {
         let newState = prevState
         res.forEach( (result) => {
           Object.keys(result).forEach( (key) => {
             if(result[key] !== '' && key !== 'callsign') {
-              console.log('setting', result.callsign,key,'to',result[key])
+              // console.log('setting', result.callsign,key,'to',result[key])
               newState.results[result.callsign][key] = result[key]
             }
           })

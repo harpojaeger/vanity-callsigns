@@ -2,33 +2,40 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import '../style/Callsign.css'
 import moment from 'moment'
+import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 function Callsign(props) {
   var classes = ['result']
-  // Assume expired & cancelled callsigns are *not* available unless one of the below tests passes
-  switch (props.license_status) {
-    // Going to handle expired and cancelled licenses separately because I'm not positive they're logged the same way in the FCC data (i.e. the last action date might be different, and I don't want to comb the DB to find out, nor trust the FCC to do it the same way every time in the future)
-    case 'E':
-      console.log(props.callsign, 'expired', props.expired_date)
-      const expDate = moment(props.expired_date, 'MM/DD/YYYY')
-      // If the license expired less than two years & one day ago, mark it as unavailable.
-      if(moment().subtract(2, 'years').subtract(1, 'days') <= expDate) {
-        console.log("that's less than two years ago")
-        classes.push(props.license_status)
-      }
-      break
-    case 'C':
-      console.log(props.callsign, 'cancelled', props.cancellation_date)
-      const cancelDate = moment(props.cancellation_date, 'MM/DD/YYYY')
-      if(moment().subtract(2, 'years').subtract(1, 'days') <= cancelDate) {
-        console.log("that's less than two years ago")
-        classes.push(props.license_status)
-      }
-      break
-    default:
-      classes.push(props.license_status)
+  var statusText = null
+  var tooltip = null
+  var tooltipText = ''
+  // inactiveDate will store the date the license either expired or was cancelled, depending on the license status.
+  var inactiveDate = null
+  if(props.license_status ==='E') {
+    statusText = 'Expired'
+    inactiveDate = props.expired_date
+  } else if(props.license_status === 'C') {
+    statusText = 'Cancelled'
+    inactiveDate = props.cancellation_date
   }
-  return <li className={classes.join(' ')} key={props.callsign}>{props.callsign}</li>
+  classes.push(props.license_status)
+  if(inactiveDate) {
+    console.log(props.callsign, statusText, inactiveDate)
+    //Parse the date into moment so we can do math with it and reformat it
+    inactiveDate = moment(inactiveDate, 'MM/DD/YYYY', true)
+    // If the license expired/was cancelled less than two years & one day ago, it's not available for registration.
+    if(moment().subtract(2, 'years').subtract(1, 'days') <= inactiveDate) {
+      console.log("that's less than two years ago")
+      const availableDate = moment(inactiveDate).add(2, 'years').add(1, 'days').format('MM MMM YYYY')
+      tooltipText = [statusText, moment(inactiveDate).format('MM MMM YYYY'),'\r\nAvailable',availableDate].join(' ')
+      console.log('tooltip for', props.callsign, 'will be', tooltipText)
+      tooltip = <Tooltip style={{'whiteSpace': 'pre-wrap'}} id={props.callsign}>{tooltipText}</Tooltip>
+      classes.push('pending')
+    }
+  }
+  const li = <li className={classes.join(' ')} key={props.callsign}>{props.callsign}</li>
+  if(tooltip) return <OverlayTrigger overlay={tooltip} placement='top'>{li}</OverlayTrigger>
+  return li
 }
 
 Callsign.propTypes = {
@@ -40,6 +47,11 @@ Callsign.propTypes = {
   cancellation_date: PropTypes.string,
   effective_date: PropTypes.string,
   expired_date: PropTypes.string,
+  certifier_first_name: PropTypes.string,
+  certifier_mi: PropTypes.string,
+  certifier_last_name: PropTypes.string,
+  certifier_suffix: PropTypes.string,
+  grant_date: PropTypes.string,
 }
 
 export default Callsign
