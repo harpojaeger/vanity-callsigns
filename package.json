@@ -14,7 +14,7 @@
   "name": "vanity-callsigns",
   "version": "1.0.0",
   "engines": {
-    "node": "7.x"
+    "node": "7.10.1"
   },
   "main": "index.js",
   "scripts": {
