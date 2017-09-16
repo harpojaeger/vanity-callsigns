@@ -1,45 +1,26 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Callsign from './Callsign'
+import ResultsGroup from './ResultsGroup'
 import '../style/ResultsList.css'
 
-function ResultsGroup(props) {
-  return(
-    <div>
-      {Object.keys(props.results).length > 0 && <h2 className='resultsGroupHeading'>{props.title}</h2>}
-      <ul className='resultsGroup'>
-        {
-          Object.keys(props.results).map( (callsign) => {
-            const attrs = props.results[callsign]
-            // console.log('for callsign',callsign,'got props',props.results[callsign])
-            return <Callsign
-            key={callsign}
-            callsign={callsign}
-            prefix={attrs.prefix}
-            region={attrs.region}
-            suffix={attrs.suffix}
-            license_status={attrs.license_status}
-            expired_date={attrs.expired_date}
-            cancellation_date={attrs.cancellation_date}
-            effective_date={attrs.cancellation_date}
-            certifier_first_name={attrs.certifier_first_name}
-            certifier_mi={attrs.certifier_mi}
-            certifier_last_name={attrs.certifier_last_name}
-            certifier_suffix={attrs.certifier_suffix}
-            grant_date={attrs.grant_date}
-          />
-          })
-        }
-      </ul>
-    </div>
-  )
-}
+
 
 class ResultsList extends Component {
   constructor(props){
     super(props)
     this.byDimension = this.byDimension.bind(this)
     this.byDimensionObj = this.byDimensionObj.bind(this)
+    this.state = {
+      // Object to control which kinds of callsigns are displayed. By default, all are visible. The filtering will need to be done at the level of <Callsign /> because it's complex, so this object will be passed down through props.
+      callsignVisibilityFilter: {
+        // Callsigns available for registration
+        available: true,
+        // Callsigns in the two-year grace period after cancellation/expiration
+        gracePeriod: true,
+        // Callsigns currently registered and therefore unavailable
+        unavailable: true
+      }
+    }
   }
   byDimension(filterParams) {
     return (callsign) => {
@@ -83,7 +64,7 @@ class ResultsList extends Component {
 
 }
 
-const resultsProps = {
+ResultsList.propTypes = {
   results: PropTypes.objectOf(PropTypes.shape({
     prefix: PropTypes.string.isRequired,
     suffix: PropTypes.string.isRequired,
@@ -99,9 +80,5 @@ const resultsProps = {
     grant_date: PropTypes.string,
   })).isRequired
 }
-
-ResultsGroup.propTypes = resultsProps
-
-ResultsList.propTypes = resultsProps
 
 export default ResultsList

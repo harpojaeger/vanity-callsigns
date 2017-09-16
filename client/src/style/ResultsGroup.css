@@ -1,0 +1,9 @@
+h2.resultsGroupHeading {
+  font-size: 2em;
+}
+ul.resultsGroup {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}

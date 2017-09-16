@@ -1,21 +1,7 @@
-h2.resultsGroupHeading {
-  font-size: 2em;
-}
-ul.resultsGroup {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  flex-wrap: wrap;
-}
-li.result {
-  font-family: monospace;
-  padding: 10px;
-  list-style-type: none;
-}
 div.filterControls {
 
-
 }
+
 div.resultsWrapper {
   margin: 0 auto;
   padding: auto;
@@ -23,9 +9,11 @@ div.resultsWrapper {
   justify-content: center;
   flex-wrap: wrap;
 }
+
 h1.textSearched {
   display: block;
 }
+
 div.resultsGroups {
   display: block;
 }

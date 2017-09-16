@@ -1,6 +1,13 @@
+li.result {
+  font-family: monospace;
+  padding: 10px;
+  list-style-type: none;
+}
+
 li.result.A {
   color: red;
 }
+
 li.result.pending {
   color: orange;
 }
