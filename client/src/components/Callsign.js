@@ -30,7 +30,7 @@ function Callsign(props) {
       tooltipText = [statusText, moment(inactiveDate).format('MM MMM YYYY'),'\r\nAvailable',availableDate].join(' ')
       console.log('tooltip for', props.callsign, 'will be', tooltipText)
       tooltip = <Tooltip style={{'whiteSpace': 'pre-wrap'}} id={props.callsign}>{tooltipText}</Tooltip>
-      classes.push('pending')
+      classes.push('graceperiod')
     }
   }
   const li = <li className={classes.join(' ')} key={props.callsign}>{props.callsign}</li>
