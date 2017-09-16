@@ -52,6 +52,11 @@ Callsign.propTypes = {
   certifier_last_name: PropTypes.string,
   certifier_suffix: PropTypes.string,
   grant_date: PropTypes.string,
+  callsignVisibilityFilter: PropTypes.objectOf(PropTypes.shape({
+    available: PropTypes.bool.isRequired,
+    gracePeriod: PropTypes.bool.isRequired,
+    unavailable: PropTypes.bool.isRequired
+  })).isRequired,
 }
 
 export default Callsign
