@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import '../style/VisibilityFilterControls.css'
 
 class VisibilityFilterControls extends Component {
   constructor(props) {
@@ -26,11 +27,23 @@ class VisibilityFilterControls extends Component {
 
   render() {
     return(
-      <div id='visibilityFilterControlFormWrapper'>
-        <form id='visibilityFilterControlForm'>
-          <input type='checkbox' name='available' checked={this.state.available} onChange={this.checkboxChanged}></input>
-          <input type='checkbox' name='unavailable' checked={this.state.unavailable} onChange={this.checkboxChanged}></input>
-          <input type='checkbox' name='graceperiod' checked={this.state.graceperiod} onChange={this.checkboxChanged}></input>
+      <div className='visibilityFilterControlFormWrapper'>
+        <div className='visibilityFilterControlFormDescription'>
+          show callsigns that are:
+        </div>
+        <form className='visibilityFilterControlForm'>
+          <label>
+            <input type='checkbox' name='available' checked={this.state.available} onChange={this.checkboxChanged}></input>
+            available
+          </label>
+          <label>
+            <input type='checkbox' name='unavailable' checked={this.state.unavailable} onChange={this.checkboxChanged}></input>
+            unavailable
+          </label>
+          <label>
+            <input type='checkbox' name='graceperiod' checked={this.state.graceperiod} onChange={this.checkboxChanged}></input>
+            in grace period
+          </label>
         </form>
       </div>
     )

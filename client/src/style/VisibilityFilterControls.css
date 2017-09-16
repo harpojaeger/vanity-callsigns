@@ -1,0 +1,21 @@
+div.visibilityFilterControlFormWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form.visibilityFilterControlForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 10px;
+}
+
+form.visibilityFilterControlForm label {
+  margin-bottom: 0;
+  font-weight: normal;
+}
+
+form.visibilityFilterControlForm label input {
+  margin-right: 4px;
+}

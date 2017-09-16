@@ -59,18 +59,20 @@ class ResultsList extends Component {
     const twoByTwos = this.byDimensionObj(this.props.results, 2, 2)
     const twoByThrees = this.byDimensionObj(this.props.results, 2, 3)
     return(
-      <div className='resultsWrapper'>
-        <div className='callsignVisibilityFilterControls'>
+      <div>
+        <div className='visibilityFilterControlWrapper'>
           <VisibilityFilterControls updateFilterValues={this.updateFilterValues} />
         </div>
-        <div className='resultsGroups'>
-          <ResultsGroup title='1x2s' results={oneByTwos} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
-          <ResultsGroup title='2x1s' results={twoByOnes} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
-          <ResultsGroup title='1x3s' results={oneByThrees} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
-          <ResultsGroup title='2x2s' results={twoByTwos} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
-          <ResultsGroup title='2x3s' results={twoByThrees} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
+        <div className='resultsWrapper'>
+          <div className='resultsGroups'>
+            <ResultsGroup title='1x2s' results={oneByTwos} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
+            <ResultsGroup title='2x1s' results={twoByOnes} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
+            <ResultsGroup title='1x3s' results={oneByThrees} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
+            <ResultsGroup title='2x2s' results={twoByTwos} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
+            <ResultsGroup title='2x3s' results={twoByThrees} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
+          </div>
         </div>
-      </div>
+      </div>  
     )
   }
 
