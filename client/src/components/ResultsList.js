@@ -9,6 +9,7 @@ class ResultsList extends Component {
     super(props)
     this.byDimension = this.byDimension.bind(this)
     this.byDimensionObj = this.byDimensionObj.bind(this)
+    this.updateFilterValues = this.updateFilterValues.bind(this)
     this.state = {
       // Object to control which kinds of callsigns are displayed. By default, all are visible. The filtering will need to be done at the level of <Callsign /> because it's complex, so this object will be passed down through props.
       callsignVisibilityFilter: {
@@ -44,6 +45,10 @@ class ResultsList extends Component {
     return filtered
   }
 
+  updateFilterValues(values) {
+    console.log('ResultsList received filter values', values)
+  }
+
   render(){
     const oneByTwos = this.byDimensionObj(this.props.results, 1, 2)
     const oneByThrees = this.byDimensionObj(this.props.results, 1, 3)
@@ -53,7 +58,7 @@ class ResultsList extends Component {
     return(
       <div className='resultsWrapper'>
         <div className='callsignVisibilityFilterControls'>
-          <VisibilityFilterControls />
+          <VisibilityFilterControls updateFilterValues={this.updateFilterValues} />
         </div>
         <div className='resultsGroups'>
           <ResultsGroup title='1x2s' results={oneByTwos} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />

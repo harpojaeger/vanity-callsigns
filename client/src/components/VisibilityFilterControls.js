@@ -20,7 +20,7 @@ class VisibilityFilterControls extends Component {
       newState[name] = checked
       return newState
     }, function() {
-
+      this.props.updateFilterValues(this.state)
     })
   }
 
@@ -37,8 +37,8 @@ class VisibilityFilterControls extends Component {
   }
 }
 
-VisibilityFilterControls.PropTypes = {
-  
+VisibilityFilterControls.propTypes = {
+  updateFilterValues: PropTypes.func.isRequired,
 }
 
 export default VisibilityFilterControls
