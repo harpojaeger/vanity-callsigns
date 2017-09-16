@@ -52,11 +52,11 @@ class ResultsList extends Component {
     return(
       <div className='resultsWrapper'>
         <div className='resultsGroups'>
-          <ResultsGroup title='1x2s' results={oneByTwos} />
-          <ResultsGroup title='2x1s' results={twoByOnes} />
-          <ResultsGroup title='1x3s' results={oneByThrees} />
-          <ResultsGroup title='2x2s' results={twoByTwos} />
-          <ResultsGroup title='2x3s' results={twoByThrees} />
+          <ResultsGroup title='1x2s' results={oneByTwos} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
+          <ResultsGroup title='2x1s' results={twoByOnes} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
+          <ResultsGroup title='1x3s' results={oneByThrees} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
+          <ResultsGroup title='2x2s' results={twoByTwos} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
+          <ResultsGroup title='2x3s' results={twoByThrees} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
         </div>
       </div>
     )

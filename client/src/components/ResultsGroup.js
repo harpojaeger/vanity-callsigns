@@ -27,6 +27,7 @@ function ResultsGroup(props) {
             certifier_last_name={attrs.certifier_last_name}
             certifier_suffix={attrs.certifier_suffix}
             grant_date={attrs.grant_date}
+            callsignVisibilityFilter={props.callsignVisibilityFilter}
           />
           })
         }
@@ -49,12 +50,12 @@ ResultsGroup.propTypes = {
     certifier_last_name: PropTypes.string,
     certifier_suffix: PropTypes.string,
     grant_date: PropTypes.string,
-    callsignVisibilityFilter: PropTypes.objectOf(PropTypes.shape({
-      available: PropTypes.bool.isRequired,
-      gracePeriod: PropTypes.bool.isRequired,
-      unavailable: PropTypes.bool.isRequired
-    })).isRequired,
-  })).isRequired
+  })).isRequired,
+  callsignVisibilityFilter: PropTypes.shape({
+    available: PropTypes.bool.isRequired,
+    gracePeriod: PropTypes.bool.isRequired,
+    unavailable: PropTypes.bool.isRequired
+  }).isRequired,
 }
 
 export default ResultsGroup
