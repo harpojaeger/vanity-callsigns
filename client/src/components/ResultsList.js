@@ -9,18 +9,6 @@ class ResultsList extends Component {
     super(props)
     this.byDimension = this.byDimension.bind(this)
     this.byDimensionObj = this.byDimensionObj.bind(this)
-    this.updateFilterValues = this.updateFilterValues.bind(this)
-    this.state = {
-      // Object to control which kinds of callsigns are displayed. By default, all are visible. The filtering will need to be done at the level of <Callsign /> because it's complex, so this object will be passed down through props.
-      callsignVisibilityFilter: {
-        // Callsigns available for registration
-        available: true,
-        // Callsigns in the two-year grace period after cancellation/expiration
-        graceperiod: true,
-        // Callsigns currently registered and therefore unavailable
-        unavailable: true
-      }
-    }
   }
 
   byDimension(filterParams) {
@@ -45,13 +33,6 @@ class ResultsList extends Component {
     return filtered
   }
 
-  updateFilterValues(values) {
-    console.log('ResultsList received filter values', values)
-    this.setState({
-      callsignVisibilityFilter: values
-    })
-  }
-
   render(){
     const oneByTwos = this.byDimensionObj(this.props.results, 1, 2)
     const oneByThrees = this.byDimensionObj(this.props.results, 1, 3)
@@ -61,18 +42,18 @@ class ResultsList extends Component {
     return(
       <div>
         <div className='visibilityFilterControlWrapper'>
-          <VisibilityFilterControls updateFilterValues={this.updateFilterValues} />
+          <VisibilityFilterControls updateFilterValues={this.props.updateFilterValues} />
         </div>
         <div className='resultsWrapper'>
           <div className='resultsGroups'>
-            <ResultsGroup title='1x2s' results={oneByTwos} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
-            <ResultsGroup title='2x1s' results={twoByOnes} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
-            <ResultsGroup title='1x3s' results={oneByThrees} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
-            <ResultsGroup title='2x2s' results={twoByTwos} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
-            <ResultsGroup title='2x3s' results={twoByThrees} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
+            <ResultsGroup title='1x2s' results={oneByTwos} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
+            <ResultsGroup title='2x1s' results={twoByOnes} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
+            <ResultsGroup title='1x3s' results={oneByThrees} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
+            <ResultsGroup title='2x2s' results={twoByTwos} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
+            <ResultsGroup title='2x3s' results={twoByThrees} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
           </div>
         </div>
-      </div>  
+      </div>
     )
   }
 
@@ -92,7 +73,13 @@ ResultsList.propTypes = {
     certifier_last_name: PropTypes.string,
     certifier_suffix: PropTypes.string,
     grant_date: PropTypes.string,
-  })).isRequired
+  })).isRequired,
+  callsignVisibilityFilter: PropTypes.shape({
+    available: PropTypes.bool.isRequired,
+    graceperiod: PropTypes.bool.isRequired,
+    unavailable: PropTypes.bool.isRequired
+  }).isRequired,
+  updateFilterValues: PropTypes.func.isRequired,
 }
 
 export default ResultsList

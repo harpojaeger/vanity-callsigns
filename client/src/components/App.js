@@ -12,10 +12,28 @@ class App extends Component {
       results: {},
       callsignsAreGenerating: false,
       statusesAreLoading: false,
+      // Object to control which kinds of callsigns are displayed. By default, all are visible. The filtering will need to be done at the level of <Callsign /> because it's complex, so this object will be passed down through props.
+      callsignVisibilityFilter: {
+        // Callsigns available for registration
+        available: true,
+        // Callsigns in the two-year grace period after cancellation/expiration
+        graceperiod: true,
+        // Callsigns currently registered and therefore unavailable
+        unavailable: true
+      }
     }
+    this.updateFilterValues = this.updateFilterValues.bind(this)
     this.generateCallsigns = this.generateCallsigns.bind(this)
     this.fetchCallsignInfo = this.fetchCallsignInfo.bind(this)
   }
+
+  updateFilterValues(values) {
+    console.log('App received filter values', values)
+    this.setState({
+      callsignVisibilityFilter: values
+    })
+  }
+
   generateCallsigns(params) {
     this.setState( {callsignsAreGenerating: true })
     generate.generate(params)
@@ -63,7 +81,7 @@ class App extends Component {
             statusText={searchButtonText}
           />
           {Object.keys(this.state.results).length > 0 &&
-            <ResultsList results={this.state.results} />
+            <ResultsList results={this.state.results} callsignVisibilityFilter={this.state.callsignVisibilityFilter} updateFilterValues={this.updateFilterValues}/>
           }
         </div>
       </div>
