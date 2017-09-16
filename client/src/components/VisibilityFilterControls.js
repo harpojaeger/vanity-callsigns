@@ -28,15 +28,15 @@ class VisibilityFilterControls extends Component {
         <form className='visibilityFilterControlForm'>
           <label>
             <input type='checkbox' name='available' checked={this.props.filterValues.available} onChange={this.checkboxChanged}></input>
-            available
+            available (black)
           </label>
           <label>
             <input type='checkbox' name='unavailable' checked={this.props.filterValues.unavailable} onChange={this.checkboxChanged}></input>
-            unavailable
+            unavailable (<span style={{color: 'red'}}>red</span>)
           </label>
           <label>
             <input type='checkbox' name='graceperiod' checked={this.props.filterValues.graceperiod} onChange={this.checkboxChanged}></input>
-            in grace period
+            in grace period (<span style={{color: 'orange'}}>orange</span>)
             <OverlayTrigger
               overlay={graceperiodTooltip}
               placement='top'>
