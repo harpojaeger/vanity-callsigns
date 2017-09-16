@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import '../style/VisibilityFilterControls.css'
+import { Glyphicon, OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 class VisibilityFilterControls extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class VisibilityFilterControls extends Component {
   }
 
   render() {
+    const graceperiodTooltip = (<Tooltip id='graceperiodExplanation'>The FCC imposes a two-year grace period after a callsign is cancelled or expires before it can be registered again.</Tooltip>)
     return(
       <div className='visibilityFilterControlFormWrapper'>
         <div className='visibilityFilterControlFormDescription'>
@@ -35,6 +37,11 @@ class VisibilityFilterControls extends Component {
           <label>
             <input type='checkbox' name='graceperiod' checked={this.props.filterValues.graceperiod} onChange={this.checkboxChanged}></input>
             in grace period
+            <OverlayTrigger
+              overlay={graceperiodTooltip}
+              placement='top'>
+              <sup><Glyphicon glyph='question-sign' /></sup>
+            </OverlayTrigger>
           </label>
         </form>
       </div>
