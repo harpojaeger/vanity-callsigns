@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchForm from './SearchForm'
+import VisibilityFilterControls from './VisibilityFilterControls.js'
 import ResultsList from './ResultsList'
 import '../style/App.css';
 import generate from '../utils/generate'
@@ -12,15 +13,6 @@ class App extends Component {
       results: {},
       callsignsAreGenerating: false,
       statusesAreLoading: false,
-      // Object to control which kinds of callsigns are displayed. By default, all are visible. The filtering will need to be done at the level of <Callsign /> because it's complex, so this object will be passed down through props.
-      callsignVisibilityFilter: {
-        // Callsigns available for registration
-        available: true,
-        // Callsigns in the two-year grace period after cancellation/expiration
-        graceperiod: true,
-        // Callsigns currently registered and therefore unavailable
-        unavailable: true
-      }
     }
     this.updateFilterValues = this.updateFilterValues.bind(this)
     this.generateCallsigns = this.generateCallsigns.bind(this)
@@ -40,7 +32,13 @@ class App extends Component {
     .then( (res) => {
       this.setState({
         results: res,
-        callsignsAreGenerating: false
+        callsignsAreGenerating: false,
+        // Reset the callsign visibility filter
+        callsignVisibilityFilter: {
+          available: true,
+          graceperiod: true,
+          unavailable: true
+        }
       })
       this.fetchCallsignInfo(res)
     })
@@ -81,7 +79,12 @@ class App extends Component {
             statusText={searchButtonText}
           />
           {Object.keys(this.state.results).length > 0 &&
-            <ResultsList results={this.state.results} callsignVisibilityFilter={this.state.callsignVisibilityFilter} updateFilterValues={this.updateFilterValues}/>
+            <div>
+              <div className='visibilityFilterControlWrapper'>
+                <VisibilityFilterControls filterValues={this.state.callsignVisibilityFilter} updateFilterValues={this.updateFilterValues} />
+              </div>
+              <ResultsList results={this.state.results} callsignVisibilityFilter={this.state.callsignVisibilityFilter} updateFilterValues={this.updateFilterValues}/>
+            </div>
           }
         </div>
       </div>

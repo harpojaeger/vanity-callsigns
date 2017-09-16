@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ResultsGroup from './ResultsGroup'
-import VisibilityFilterControls from './VisibilityFilterControls.js'
 import '../style/ResultsList.css'
 
 class ResultsList extends Component {
@@ -40,18 +39,13 @@ class ResultsList extends Component {
     const twoByTwos = this.byDimensionObj(this.props.results, 2, 2)
     const twoByThrees = this.byDimensionObj(this.props.results, 2, 3)
     return(
-      <div>
-        <div className='visibilityFilterControlWrapper'>
-          <VisibilityFilterControls updateFilterValues={this.props.updateFilterValues} />
-        </div>
-        <div className='resultsWrapper'>
-          <div className='resultsGroups'>
-            <ResultsGroup title='1x2s' results={oneByTwos} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
-            <ResultsGroup title='2x1s' results={twoByOnes} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
-            <ResultsGroup title='1x3s' results={oneByThrees} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
-            <ResultsGroup title='2x2s' results={twoByTwos} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
-            <ResultsGroup title='2x3s' results={twoByThrees} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
-          </div>
+      <div className='resultsWrapper'>
+        <div className='resultsGroups'>
+          <ResultsGroup title='1x2s' results={oneByTwos} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
+          <ResultsGroup title='2x1s' results={twoByOnes} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
+          <ResultsGroup title='1x3s' results={oneByThrees} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
+          <ResultsGroup title='2x2s' results={twoByTwos} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
+          <ResultsGroup title='2x3s' results={twoByThrees} callsignVisibilityFilter={this.props.callsignVisibilityFilter} />
         </div>
       </div>
     )
@@ -79,7 +73,6 @@ ResultsList.propTypes = {
     graceperiod: PropTypes.bool.isRequired,
     unavailable: PropTypes.bool.isRequired
   }).isRequired,
-  updateFilterValues: PropTypes.func.isRequired,
 }
 
 export default ResultsList
