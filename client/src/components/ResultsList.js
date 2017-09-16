@@ -47,6 +47,9 @@ class ResultsList extends Component {
 
   updateFilterValues(values) {
     console.log('ResultsList received filter values', values)
+    this.setState({
+      callsignVisibilityFilter: values
+    })
   }
 
   render(){
