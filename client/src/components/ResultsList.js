@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ResultsGroup from './ResultsGroup'
+import VisibilityFilterControls from './VisibilityFilterControls.js'
 import '../style/ResultsList.css'
 
 class ResultsList extends Component {
@@ -51,6 +52,9 @@ class ResultsList extends Component {
     const twoByThrees = this.byDimensionObj(this.props.results, 2, 3)
     return(
       <div className='resultsWrapper'>
+        <div className='callsignVisibilityFilterControls'>
+          <VisibilityFilterControls />
+        </div>
         <div className='resultsGroups'>
           <ResultsGroup title='1x2s' results={oneByTwos} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
           <ResultsGroup title='2x1s' results={twoByOnes} callsignVisibilityFilter={this.state.callsignVisibilityFilter} />
