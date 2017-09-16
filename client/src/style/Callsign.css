@@ -1,13 +1,13 @@
-li.result {
+li.callsign {
   font-family: monospace;
   padding: 10px;
   list-style-type: none;
 }
 
-li.result.A {
+li.callsign.unavailable {
   color: red;
 }
 
-li.result.graceperiod {
+li.callsign.graceperiod {
   color: orange;
 }

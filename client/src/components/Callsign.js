@@ -5,11 +5,13 @@ import moment from 'moment'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 function Callsign(props) {
-  var classes = ['result']
+  // By default, mark callsigns as 'available'. This will be replaced by 'unavailable' or 'graceperiod' if necessary.
+  var availability = 'available'
   var statusText = null
   var tooltip = null
   var tooltipText = ''
   // inactiveDate will store the date the license either expired or was cancelled, depending on the license status.
+  // NOTE: consider revising this to use effective_date, which is FCC-supplied and may be more accurate.
   var inactiveDate = null
   if(props.license_status ==='E') {
     statusText = 'Expired'
@@ -18,7 +20,7 @@ function Callsign(props) {
     statusText = 'Cancelled'
     inactiveDate = props.cancellation_date
   }
-  classes.push(props.license_status)
+  if(props.license_status === 'A') availability = 'unavailable'
   if(inactiveDate) {
     console.log(props.callsign, statusText, inactiveDate)
     //Parse the date into moment so we can do math with it and reformat it
@@ -30,10 +32,10 @@ function Callsign(props) {
       tooltipText = [statusText, moment(inactiveDate).format('MM MMM YYYY'),'\r\nAvailable',availableDate].join(' ')
       console.log('tooltip for', props.callsign, 'will be', tooltipText)
       tooltip = <Tooltip style={{'whiteSpace': 'pre-wrap'}} id={props.callsign}>{tooltipText}</Tooltip>
-      classes.push('graceperiod')
+      availability = 'graceperiod'
     }
   }
-  const li = <li className={classes.join(' ')} key={props.callsign}>{props.callsign}</li>
+  const li = <li className={'callsign ' + availability} key={props.callsign}>{props.callsign}</li>
   if(tooltip) return <OverlayTrigger overlay={tooltip} placement='top'>{li}</OverlayTrigger>
   return li
 }
