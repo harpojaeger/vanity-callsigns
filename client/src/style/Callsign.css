@@ -11,3 +11,7 @@ li.callsign.unavailable {
 li.callsign.graceperiod {
   color: orange;
 }
+
+li.callsign.hidden {
+  display: none;
+}

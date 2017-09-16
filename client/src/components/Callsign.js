@@ -35,6 +35,9 @@ function Callsign(props) {
       availability = 'graceperiod'
     }
   }
+
+  // If this callsign's status is excluded from callsignVisibilityFilter, add a class to hide it
+  if(props.callsignVisibilityFilter[availability] === false) availability += ' hidden'
   const li = <li className={'callsign ' + availability} key={props.callsign}>{props.callsign}</li>
   if(tooltip) return <OverlayTrigger overlay={tooltip} placement='top'>{li}</OverlayTrigger>
   return li
