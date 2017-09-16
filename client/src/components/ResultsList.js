@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import ResultsGroup from './ResultsGroup'
 import '../style/ResultsList.css'
 
-
-
 class ResultsList extends Component {
   constructor(props){
     super(props)
@@ -22,11 +20,13 @@ class ResultsList extends Component {
       }
     }
   }
+
   byDimension(filterParams) {
     return (callsign) => {
       return callsign.prefix.length === filterParams.prefixLength && callsign.suffix.length === filterParams.suffixLength
     }
   }
+
   byDimensionObj(obj, prefixLength, suffixLength) {
     // console.log('byDimensionObj called with',obj)
     const objKeys = Object.keys(obj)
@@ -41,8 +41,8 @@ class ResultsList extends Component {
       return acc
     }, {})
     return filtered
-
   }
+
   render(){
     const oneByTwos = this.byDimensionObj(this.props.results, 1, 2)
     const oneByThrees = this.byDimensionObj(this.props.results, 1, 3)
