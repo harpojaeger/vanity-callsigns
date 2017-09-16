@@ -14,7 +14,7 @@ class ResultsList extends Component {
         // Callsigns available for registration
         available: true,
         // Callsigns in the two-year grace period after cancellation/expiration
-        gracePeriod: true,
+        graceperiod: true,
         // Callsigns currently registered and therefore unavailable
         unavailable: true
       }

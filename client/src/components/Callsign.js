@@ -56,7 +56,7 @@ Callsign.propTypes = {
   grant_date: PropTypes.string,
   callsignVisibilityFilter: PropTypes.shape({
     available: PropTypes.bool.isRequired,
-    gracePeriod: PropTypes.bool.isRequired,
+    graceperiod: PropTypes.bool.isRequired,
     unavailable: PropTypes.bool.isRequired
   }).isRequired,
 }
