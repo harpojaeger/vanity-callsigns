@@ -7,16 +7,10 @@ div.searchContentWrapper {
 }
 form.searchForm {
   display: flex;
-  padding-top: 10px;
+  /*padding-top: 10px;*/
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-}
-form.searchForm button {
-  /*margin-left: 10px;*/
-}
-form.searchForm input {
-  /*width: 110px;*/
 }
 div.form-group {
   display: flex;
@@ -26,6 +20,7 @@ div.form-group {
 }
 
 div.form-group h4 {
+  margin-top: 0;
   display: block;
   width: 100%;
 }
