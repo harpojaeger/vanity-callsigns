@@ -14,6 +14,8 @@ class CallsignDetails extends Component {
   }
   runSearch(e) {
     e.preventDefault()
+    const callsignRegex = /^(?=.{4,6}$)^((?:A[A-K])|(?:[WKN][A-Z]?))[0-9][A-Z]{1,3}$/i
+    console.log('is',this.state.query,'a valid callsign:',callsignRegex.test(this.state.query))
     this.callsignLookup(this.state.query)
   }
   callsignLookup(callsign) {
