@@ -13,3 +13,31 @@ input.detailedCallsignInfoInput {
   width: 100px;
   margin: 0 10px;
 }
+
+ul.licenseAttrList {
+  padding: 0;
+  margin: 0;
+}
+
+li.licenseAttr {
+  list-style-type:none;
+  display: flex;
+}
+
+li.licenseAttr div {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0 10px;
+  /*border-bottom: 1px solid red;*/
+  font-family: monospace;
+}
+
+li.licenseAttr div.attrDesc {
+  justify-content: flex-end;
+}
+
+li.licenseAttr div.attrVal {
+  justify-content: flex-start;
+}

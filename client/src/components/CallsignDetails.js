@@ -56,7 +56,7 @@ class CallsignDetails extends Component {
           </FormGroup>
         </form>
         {this.state.hasOwnProperty('res') &&
-          <ul>
+          <ul className='licenseAttrList'>
             {
               Object.entries(this.state.res[0]).map( ([key, value]) => {
                 return <CallsignAttribute key={key} shortname={key} fullname={callsignAttributeDictionary[key]} value={value} />
@@ -70,7 +70,7 @@ class CallsignDetails extends Component {
 }
 
 function CallsignAttribute(props) {
-  return <li key={props.shortname}>{props.fullname}: {props.value}</li>
+  return <li className='licenseAttr' key={props.shortname}><div className='attrDesc'>{props.fullname}</div><div className='attrVal'>{props.value}</div></li>
 }
 
 CallsignAttribute.propTypes = {
