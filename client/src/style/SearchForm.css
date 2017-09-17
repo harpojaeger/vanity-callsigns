@@ -7,12 +7,11 @@ div.searchContentWrapper {
 }
 form.searchForm {
   display: flex;
-  /*padding-top: 10px;*/
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
 }
-div.form-group {
+form.searchForm div.form-group {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -22,23 +21,4 @@ div.form-group {
 div.form-group h4 {
   margin-top: 0;
   display: block;
-  width: 100%;
 }
-/*div.checkbox{
-  margin: auto 0 auto 5px;
-}
-div.validationMessages {
-  display:block;
-  text-align: left;
-  margin-top: 10px;
-  color:rgb(200,0,0);
-}
-ul.validationMessageList {
-  margin: 0;
-  padding: 0;
-}
-li.validationMessageListItem{
-  list-style-type: none;
-  margin:0;
-  padding: 0;
-}*/

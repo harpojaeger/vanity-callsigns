@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import '../style/App.css';
 import Search from './Search'
 import About from './About'
+import CallsignDetails from './CallsignDetails'
 
 class App extends Component {
   render(){
@@ -15,12 +16,14 @@ class App extends Component {
         <div>
           <ul className='nav'>
             <li><Link to='/'>Search callsigns</Link></li>
+            <li><Link to="/callsign">Callsign details</Link></li>
             <li><Link to="/about">About</Link></li>
           </ul>
         </div>
         <div className='content-wrapper'>
-          <Route exact path="/" component={Search}/>
-          <Route path="/about" component={About}/>
+          <Route exact path="/" component={Search} />
+          <Route exact path="/callsign" component={CallsignDetails} />
+          <Route path="/about" component={About} />
         </div>
       </div>
     </Router>

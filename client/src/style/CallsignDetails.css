@@ -1,0 +1,15 @@
+form.callsignLookupForm div.form-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+form.callsignLookupForm h4 {
+  margin: 0;
+}
+
+input.detailedCallsignInfoInput {
+  width: 100px;
+  margin: 0 10px;
+}
