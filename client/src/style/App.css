@@ -17,6 +17,13 @@
   font-size: large;
 }
 
+ul.nav {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 div.content-wrapper {
   width: 80%;
   margin: 0 auto;

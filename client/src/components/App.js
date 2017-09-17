@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import '../style/App.css';
 import Search from './Search'
-
-const About = () => (
-  <div>
-    <h2>I'm the about page</h2>
-  </div>
-)
+import About from './About'
 
 class App extends Component {
   render(){
@@ -18,8 +13,8 @@ class App extends Component {
           <h2>Vanity callsign search</h2>
         </div>
         <div>
-          <ul>
-            <li><Link to='/'>Search</Link></li>
+          <ul className='nav'>
+            <li><Link to='/'>Search callsigns</Link></li>
             <li><Link to="/about">About</Link></li>
           </ul>
         </div>
