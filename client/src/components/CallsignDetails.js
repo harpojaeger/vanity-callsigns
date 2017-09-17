@@ -25,6 +25,8 @@ class CallsignDetails extends Component {
     this.callsignLookup = this.callsignLookup.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.runSearch = this.runSearch.bind(this)
+    // Run the search with a fake event (there's probably a better way of doing this)
+    this.runSearch(new Event('foo'))
   }
   runSearch(e) {
     e.preventDefault()
