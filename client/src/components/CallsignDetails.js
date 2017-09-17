@@ -25,6 +25,8 @@ class CallsignDetails extends Component {
     this.callsignLookup = this.callsignLookup.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.runSearch = this.runSearch.bind(this)
+  }
+  componentWillMount() {
     // Run the search with a fake event (there's probably a better way of doing this)
     this.runSearch(new Event('foo'))
   }
@@ -33,7 +35,12 @@ class CallsignDetails extends Component {
     const callsignRegex = /^(?=.{4,6}$)^((?:A[A-K])|(?:[WKN][A-Z]?))[0-9][A-Z]{1,3}$/i
     const isValidCallsign = callsignRegex.test(this.state.query)
     console.log('is',this.state.query,'a valid callsign:', isValidCallsign)
-    if(isValidCallsign) this.callsignLookup(this.state.query)
+    if(isValidCallsign) {
+      this.callsignLookup(this.state.query)
+      this.props.history.push('/callsign/' + this.state.query)
+    } else {
+      // tell the user it's not a valid callsign
+    }
   }
   callsignLookup(callsign) {
     api.bulkSearch([callsign.toUpperCase()])
