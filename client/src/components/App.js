@@ -22,8 +22,8 @@ class App extends Component {
         </div>
         <div className='content-wrapper'>
           <Route exact path="/" component={Search} />
-          <Route exact path="/callsign" component={CallsignDetails} />
-          <Route path="/about" component={About} />
+          <Route path="/callsign/:callsign?" component={CallsignDetails} />
+          <Route path="/about" component={About}/>
         </div>
       </div>
     </Router>

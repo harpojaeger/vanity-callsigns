@@ -6,7 +6,8 @@ import '../style/CallsignDetails.css'
 class CallsignDetails extends Component {
   constructor(props) {
     super(props)
-    this.state = { query: '' }
+    console.log(props)
+    this.state = { query: props.match.params.callsign }
     this.callsignLookup = this.callsignLookup.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.runSearch = this.runSearch.bind(this)
@@ -19,6 +20,7 @@ class CallsignDetails extends Component {
     api.bulkSearch([callsign.toUpperCase()])
     .then( (res) => {
       console.log('callsignLookup received', res)
+      this.setState( { res: res })
     })
   }
   handleChange(e){
