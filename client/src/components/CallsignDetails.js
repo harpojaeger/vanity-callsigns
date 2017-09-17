@@ -28,7 +28,7 @@ class CallsignDetails extends Component {
   }
   componentWillMount() {
     // Run the search with a fake event (there's probably a better way of doing this)
-    this.runSearch(new Event('foo'))
+    if (this.props.match.params.callsign) this.runSearch(new Event('foo'))
   }
   runSearch(e) {
     e.preventDefault()
