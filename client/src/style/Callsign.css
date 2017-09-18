@@ -2,7 +2,9 @@ li.callsign {
   font-family: monospace;
   padding: 10px;
   list-style-type: none;
+  color: black;
 }
+
 
 li.callsign.unavailable {
   color: red;

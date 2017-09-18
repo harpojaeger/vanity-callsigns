@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import '../style/Callsign.css'
 import moment from 'moment'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
@@ -38,7 +39,7 @@ function Callsign(props) {
 
   // If this callsign's status is excluded from callsignVisibilityFilter, add a class to hide it
   if(props.callsignVisibilityFilter[availability] === false) availability += ' hidden'
-  const li = <li className={'callsign ' + availability} key={props.callsign}>{props.callsign}</li>
+  const li = <Link to={'/callsign/'+props.callsign}><li className={'callsign ' + availability} key={props.callsign}>{props.callsign}</li></Link>
   if(tooltip) return <OverlayTrigger overlay={tooltip} placement='top'>{li}</OverlayTrigger>
   return li
 }
