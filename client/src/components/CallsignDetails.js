@@ -24,6 +24,7 @@ class CallsignDetails extends Component {
     this.state = {
       query: props.match.params.callsign,
       isValidCallsign: true,
+      searchIsRunning: false,
      }
     this.callsignLookup = this.callsignLookup.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -40,6 +41,7 @@ class CallsignDetails extends Component {
     console.log('is',this.state.query,'a valid callsign:', isValidCallsign)
     this.setState( {isValidCallsign: isValidCallsign })
     if(isValidCallsign) {
+      this.setState( {searchIsRunning: true })
       this.callsignLookup(this.state.query)
       this.props.history.push('/callsign/' + this.state.query)
     }
@@ -48,7 +50,10 @@ class CallsignDetails extends Component {
     api.bulkSearch([callsign.toUpperCase()])
     .then( (res) => {
       console.log('callsignLookup received', res)
-      this.setState( { res: res })
+      this.setState( {
+        res: res,
+        searchIsRunning: false
+      })
     })
   }
   handleChange(e){
@@ -63,7 +68,7 @@ class CallsignDetails extends Component {
             <FormControl type='text' className='detailedCallsignInfoInput'
               value={this.state.query} onChange={this.handleChange}
             />
-            <Button type='submit' value='search' onClick={this.runSearch}>Lookup</Button>
+            <Button disabled={this.state.searchIsRunning} type='submit' value='search' onClick={this.runSearch}>{this.state.searchIsRunning ? 'Searching...' : 'Lookup'}</Button>
           </FormGroup>
         </form>
         { !this.state.isValidCallsign && <div>Invalid callsign.</div>}
