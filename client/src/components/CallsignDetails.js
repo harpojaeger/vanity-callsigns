@@ -67,7 +67,7 @@ class CallsignDetails extends Component {
           </FormGroup>
         </form>
         { !this.state.isValidCallsign && <div>Invalid callsign.</div>}
-        {(this.state.hasOwnProperty('res') && this.state.isValidCallsign) &&
+        {(this.state.hasOwnProperty('res') && this.state.res.length >0 && this.state.isValidCallsign) &&
           <ul className='licenseAttrList'>
             {
               Object.entries(this.state.res[0]).map( ([key, value]) => {
@@ -75,6 +75,9 @@ class CallsignDetails extends Component {
               })
             }
           </ul>
+        }
+        { (this.state.hasOwnProperty('res') && this.state.res.length == 0 && this.state.isValidCallsign ) &&
+          <div>No results found.</div>
         }
       </div>
     )
