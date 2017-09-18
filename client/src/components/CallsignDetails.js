@@ -21,7 +21,10 @@ class CallsignDetails extends Component {
   constructor(props) {
     super(props)
     console.log(props)
-    this.state = { query: props.match.params.callsign }
+    this.state = {
+      query: props.match.params.callsign,
+      isValidCallsign: true,
+     }
     this.callsignLookup = this.callsignLookup.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.runSearch = this.runSearch.bind(this)
@@ -35,11 +38,10 @@ class CallsignDetails extends Component {
     const callsignRegex = /^(?=.{4,6}$)^((?:A[A-K])|(?:[WKN][A-Z]?))[0-9][A-Z]{1,3}$/i
     const isValidCallsign = callsignRegex.test(this.state.query)
     console.log('is',this.state.query,'a valid callsign:', isValidCallsign)
+    this.setState( {isValidCallsign: isValidCallsign })
     if(isValidCallsign) {
       this.callsignLookup(this.state.query)
       this.props.history.push('/callsign/' + this.state.query)
-    } else {
-      // tell the user it's not a valid callsign
     }
   }
   callsignLookup(callsign) {
@@ -64,7 +66,8 @@ class CallsignDetails extends Component {
             <Button type='submit' value='search' onClick={this.runSearch}>Lookup</Button>
           </FormGroup>
         </form>
-        {this.state.hasOwnProperty('res') &&
+        { !this.state.isValidCallsign && <div>Invalid callsign.</div>}
+        {(this.state.hasOwnProperty('res') && this.state.isValidCallsign) &&
           <ul className='licenseAttrList'>
             {
               Object.entries(this.state.res[0]).map( ([key, value]) => {
