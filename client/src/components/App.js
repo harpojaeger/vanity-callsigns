@@ -9,15 +9,15 @@ class App extends Component {
   render(){
     return(
       <Router>
-      <div className="App">
-        <div className="App-header">
-          <h2>Vanity callsign search</h2>
-        </div>
-        <div>
-          <ul className='nav'>
-            <li><Link to='/'>Search callsigns</Link></li>
-            <li><Link to="/callsign">Callsign details</Link></li>
-            <li><Link to="/about">About</Link></li>
+        <div className="App">
+          <div className="App-header">
+            <h2>Vanity callsign search</h2>
+          </div>
+          <div>
+            <ul className='nav'>
+              <li><Link to='/'>Search callsigns</Link></li>
+              <li><Link to="/callsign">Callsign details</Link></li>
+              {/* <li><Link to="/about">About</Link></li> */}
           </ul>
         </div>
         <div className='content-wrapper'>

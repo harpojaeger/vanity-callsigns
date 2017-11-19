@@ -2,7 +2,7 @@ import React from 'react'
 
 function About() {
   return(
-    <div>I'm an imported about component.</div>
+    <div>Use this application to search for available US ham radio callsigns..</div>
   )
 }
 

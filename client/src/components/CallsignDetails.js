@@ -23,6 +23,7 @@ class CallsignDetails extends Component {
     console.log(props)
     this.state = {
       query: props.match.params.callsign,
+      res: [],
       isValidCallsign: true,
       searchIsRunning: false,
      }
@@ -41,7 +42,10 @@ class CallsignDetails extends Component {
     console.log('is',this.state.query,'a valid callsign:', isValidCallsign)
     this.setState( {isValidCallsign: isValidCallsign })
     if(isValidCallsign) {
-      this.setState( {searchIsRunning: true })
+      this.setState( {
+        res: [],
+        searchIsRunning: true
+      })
       this.callsignLookup(this.state.query)
       this.props.history.push('/callsign/' + this.state.query)
     }
@@ -72,7 +76,7 @@ class CallsignDetails extends Component {
           </FormGroup>
         </form>
         { !this.state.isValidCallsign && <div>Invalid callsign.</div>}
-        {(this.state.hasOwnProperty('res') && this.state.res.length >0 && this.state.isValidCallsign) &&
+        {( this.state.res.length > 0 ) &&
           <ul className='licenseAttrList'>
             {
               Object.entries(this.state.res[0]).map( ([key, value]) => {
@@ -81,7 +85,7 @@ class CallsignDetails extends Component {
             }
           </ul>
         }
-        { (this.state.hasOwnProperty('res') && this.state.res.length == 0 && this.state.isValidCallsign ) &&
+        { (this.state.res.length === 0 && !this.state.searchIsRunning ) &&
           <div>No results found.</div>
         }
       </div>
